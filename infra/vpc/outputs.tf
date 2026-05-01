@@ -4,7 +4,7 @@ output "PublicSubnets1" {
 }
 
 output "PublicSubnet2" {
-  value = aws.subnet.Public_Subnet_2.id
+  value = aws_subnet.Public_Subnet_2.id
   description = "Public Subnet 2 Output"
 }
 
@@ -29,12 +29,12 @@ output "vpc" {
 
 }
 
-output "Route Table PBLC" {
+output "Route_Table_PBLC" {
     value = aws_route_table.public.id
     description = "Route Table Public"
 }
 
-output "Route Table PRVTE" {
+output "Route_Table_PRVTE" {
   value = aws_route_table.private.id
   description = "route table private"
 }

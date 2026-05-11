@@ -1,6 +1,6 @@
 variable "vpc" {
   type = string
-  default = module.vpc.vpc
+  description = "VPC_id"
 }
 
 

@@ -1,4 +1,4 @@
-output "PublicSubnets1" {
+output "PublicSubnet1" {
   value = aws_subnet.Public_Subnet_1.id
   description = "Public Subnet 1 Output"
 }

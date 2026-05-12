@@ -19,8 +19,8 @@ variable "PrivateSubnet1" {
 }
 
 variable "PrivateSubnet2" {
-type = string
-description = "Private Subnet for AZ"
+  type = string
+  description = "Private Subnet for AZ"
 }
 
 

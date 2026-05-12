@@ -1,3 +1,5 @@
+## Virtual Private Cloud
+
 variable "vpc_cidr" {
   type = string
   description = "cidr block"
@@ -21,4 +23,50 @@ variable "private_subnet1" {
 variable "private_subnet2" {
   type = string
   description = "Private Subnet 2 CIDR"
+}
+
+#------------------------------------------
+# Elastic Container Service
+
+
+variable "family" {
+  type = string
+  description = "Name of the Application"
+}
+
+
+variable "cpu" {
+  type = string
+  description = "Amount of Cores within TK"
+}
+
+variable "image" {
+  type = string
+  description = "Docker Image"
+}
+
+variable "network_mode" {
+  type = string
+  description = "Which VPC will it be connected to"
+
+}
+
+variable "require_compatibilities" {
+  type = string
+  description = "Fargate Serverless"
+}
+
+variable "memory" {
+  type = string
+  description = "RAM Usage"
+}
+
+variable "execution_role_arn" {
+  type = string
+  description = "IAM ECS"
+}
+
+variable "name" {
+  type = string
+  description = "Name of Cluster"
 }

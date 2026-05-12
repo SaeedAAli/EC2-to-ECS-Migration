@@ -24,7 +24,7 @@ output "InternetGW" {
 }
 
 output "vpc" {
-  value = aws_vpc.ecs.id
+  value = aws_vpc.main.id
   description = "vpc for ecs"
 
 }

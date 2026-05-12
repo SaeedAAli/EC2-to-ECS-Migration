@@ -1,5 +1,5 @@
-resource "aws_vpc" "ecs" {
-  cidr_block = "10.0.0.0/16"
+resource "aws_vpc" "main" {
+  cidr_block = var.vpc_cidr
   enable_dns_hostnames = true
 
   tags = {
@@ -9,7 +9,7 @@ resource "aws_vpc" "ecs" {
 
 
 resource "aws_subnet" "Public_Subnet_1" {
-  vpc_id = aws_vpc.ecs.id
+  vpc_id = aws_vpc.main.id
   cidr_block = var.PublicSubnet1
   availability_zone = "eu-west-1a"
     tags = {
@@ -19,32 +19,32 @@ resource "aws_subnet" "Public_Subnet_1" {
 }
 
 resource "aws_subnet" "Public_Subnet_2" {
-  vpc_id = aws_vpc.ecs.id
+  vpc_id = aws_vpc.main.id
   cidr_block = var.PublicSubnet2
   availability_zone = "eu-west-2a"
 }
 
 resource "aws_subnet" "Private_Subnet_1" {
-  vpc_id = aws_vpc.ecs.id
+  vpc_id = aws_vpc.main.id
   cidr_block = var.PrivateSubnet1
   availability_zone = "eu-west-1a"
 }
 
 resource "aws_subnet" "Private_Subnet_2" {
-  vpc_id = aws_vpc.ecs.id
+  vpc_id = aws_vpc.main.id
   cidr_block = var.PrivateSubnet2
   availability_zone = "eu-west-2a"
 }
 
 resource "aws_internet_gateway" "IGW" {
-  vpc_id = aws_vpc.ecs.id
+  vpc_id = aws_vpc.main.id
   tags = {
     Name = "Allow access to the Internet Inside the VPC"
   }
 }
 
 resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.ecs.id
+  vpc_id = aws_vpc.main.id
   tags = {
     Name = "PR Table"
 }
@@ -67,7 +67,7 @@ resource "aws_route_table_association" "Public_Subnet_2" {
 }
 
 resource "aws_route_table" "private" {
-  vpc_id = aws_vpc.ecs.id
+  vpc_id = aws_vpc.main.id
   tags = {
     Name = "PRV Table"
   }  

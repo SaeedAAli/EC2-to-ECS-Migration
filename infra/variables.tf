@@ -70,3 +70,43 @@ variable "name" {
   type = string
   description = "Name of Cluster"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+#--------------------------------
+# Application Load Balancer
+
+variable "ALBname" {
+  type = string
+  description = "Name of the Load Balancer"
+}
+
+variable "internal" {
+  type = string
+  description = "If false it will work"
+}
+
+variable "load_balancer_type" {
+  type = string
+  description = "Type of Load Balancer - ALB or CLB or NLB"
+
+}
+
+variable "security_groups" {
+  type = string
+  description = "Port 5002 through ALB"
+}
+
+variable "Publicsubnets" {
+  type = string
+  description = ""
+}

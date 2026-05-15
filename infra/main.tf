@@ -22,6 +22,16 @@ module "ECS" {
   family = var.family
   network_mode = var.network_mode
   image = var.image
+  task-role-arn = var.task-role-arn
+}
 
+
+module "ALB" {
+  source = "./modules/alb"
+  load_balancer_type = module.security_group.ALB_Security_group
+  name = var.ALBname
+  subnet1 = module.vpc.PublicSubnet1
+  subnet2 = module.vpc.PublicSubnet2
+  internal = var.internal
 }
 

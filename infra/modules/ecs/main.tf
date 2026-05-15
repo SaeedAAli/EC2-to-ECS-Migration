@@ -8,8 +8,8 @@ resource "aws_ecs_task_definition" "TK" {
     {
       name = var.name
       family = var.family
-      Image = var.image
-      cPU = var.cpu
+      image = var.image
+      cpu = var.cpu
       require_compatibilites = var.require_compatibilities
       network_mode = var.network_mode
       execution-role = var.execution_role
@@ -23,4 +23,13 @@ resource "aws_ecs_task_definition" "TK" {
     
     }
   ])
+}
+
+resource "aws_ecs_service" "ecs" {
+  name = "ecs"
+  cluster = aws_ecs_cluster.caravan.id
+  task_definition = aws_ecs_task_definition.TK.arn
+  iam_role = aws_iam
+
+
 }

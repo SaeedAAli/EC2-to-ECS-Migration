@@ -40,6 +40,7 @@ variable "image" {
   
 }
 
-variable "" {
-  
+variable "task-role-arn" {
+  type = string
+  description = "Task role arn"
 }

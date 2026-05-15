@@ -1,4 +1,4 @@
-variable "name" {
+variable "ALBname" {
   type = string
   description = "Name of the Application Load Balancer"
 }
@@ -8,22 +8,17 @@ variable "load_balancer_type" {
   description = "Type of Load Balancer which is application"
 }
 
-variable "subnet1" {
+variable "internal" {
   type = string
-  description = "Subnet one for one application load balancer"
+  description = "If true, LB will be internal defaults to false"
 }
 
-variable "subnet2" {
+variable "subnets" {
   type = string
-  description = "Subnet two for one application load balancer"
+  description = "Both Public Subnets"
 }
 
 variable "security_groups" {
   type = string
-  description = "Filters out for 5002 Port for ECS"
-}
-
-variable "internal" {
-  type = string
-  description = "If true, LB will be internal defaults to false"
+  description = "SG for ALB"
 }

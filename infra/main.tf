@@ -28,10 +28,10 @@ module "ECS" {
 
 module "ALB" {
   source = "./modules/alb"
-  load_balancer_type = module.security_group.ALB_Security_group
-  name = var.ALBname
-  subnet1 = module.vpc.PublicSubnet1
-  subnet2 = module.vpc.PublicSubnet2
   internal = var.internal
+  ALBname = var.ALBname
+  load_balancer_type = var.load_balancer_type
+  subnets = module.vpc.PublicSubnet1
+  security_groups = module.security_group.ALB_Security_group
 }
 

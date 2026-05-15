@@ -1,23 +1,12 @@
 output "name" {
-  value = ""
-}
-
-output "security_group" {
-  value = ""
+  value = aws_alb.ALB.name
 }
 
 output "load_balancer_type" {
-  value = ""
+  value = aws_alb.ALB.load_balancer_type
 }
 
 output "internal" {
-  value = ""
+  value = aws_alb.Internal
 }
 
-output "subnet1" {
-  value = ""
-}
-
-output "subnet2" {
-  value = ""
-}

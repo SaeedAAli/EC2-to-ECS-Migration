@@ -26,6 +26,3 @@ image = "923673751050.dkr.ecr.eu-west-2.amazonaws.com/ec2toecsmigration"
 load_balancer_type = "application"
 ALBname = "ALB"
 internal = false
-subents1 = module.vpc.PublicSubnet1
-subnets2 = module.vpc.PublicSubnet2
-security_group = aws_security_group.lb_sg

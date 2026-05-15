@@ -106,7 +106,3 @@ variable "security_groups" {
   description = "Port 5002 through ALB"
 }
 
-variable "Publicsubnets" {
-  type = string
-  description = ""
-}

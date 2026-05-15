@@ -26,3 +26,10 @@ image = "923673751050.dkr.ecr.eu-west-2.amazonaws.com/ec2toecsmigration"
 load_balancer_type = "application"
 ALBname = "ALB"
 internal = false
+
+#---------------
+# Target Group
+Target_group_name = "Load Balancer"
+Target_port = 80
+Target_Protocol = "TCP"
+Target_type = "alb"

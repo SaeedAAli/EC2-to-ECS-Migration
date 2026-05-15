@@ -4,5 +4,8 @@ resource "aws_alb" "ALB" {
   load_balancer_type = var.load_balancer_type
   security_groups = aws_security_group.Application_Load_Balancer
   subnets = [module.vpc.PublicSubnet1, module.vpc.PublicSubnet2]
+}
 
+resource "aws_alb_target_group" "listener" {
+  
 }

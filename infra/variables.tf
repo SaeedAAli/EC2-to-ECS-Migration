@@ -79,9 +79,6 @@ variable "name" {
 
 
 
-
-
-
 #--------------------------------
 # Application Load Balancer
 
@@ -106,3 +103,26 @@ variable "security_groups" {
   description = "Port 5002 through ALB"
 }
 
+
+#------------
+# ALB Target Group
+
+variable "Target_group_name" {
+  type = string
+  description = "Name of the Target Group"
+}
+
+variable "Target_type" {
+  type = string
+  description = "Which Load Balancer, This instance, ALB"
+}
+
+variable "Target_port" {
+  type = number
+  description = "Port 80 == HTTP"
+}
+
+variable "Target_Protocol" {
+  type = string
+  description = "Tranmission Control Protocol"
+}

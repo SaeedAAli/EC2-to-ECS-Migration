@@ -22,3 +22,26 @@ variable "security_groups" {
   type = string
   description = "SG for ALB"
 }
+
+# -------------
+# Target Group
+
+variable "Target_type" {
+  description = "string"
+  type = string
+}
+
+variable "Target_Protocol" {
+  type = string
+  description = "TCP"
+}
+
+variable "Target_Port" {
+  type = number
+  description = "Route to TG"
+}
+
+variable "Target_type" {
+  type = string
+  description = "alb"
+}

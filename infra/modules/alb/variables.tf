@@ -14,14 +14,16 @@ variable "internal" {
 }
 
 variable "subnets" {
-  type = string
+  type = list(string)
   description = "Both Public Subnets"
 }
 
 variable "security_groups" {
-  type = string
+  type = list(string)
   description = "SG for ALB"
 }
+
+
 
 # -------------
 # Target Group
@@ -50,3 +52,4 @@ variable "vpc_id" {
   type = string
   description = "VPC ID"
 }
+

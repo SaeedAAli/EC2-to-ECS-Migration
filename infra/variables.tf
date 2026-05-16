@@ -98,11 +98,15 @@ variable "load_balancer_type" {
 
 }
 
-variable "security_groups" {
+variable "subnets" {
   type = string
-  description = "Port 5002 through ALB"
+  description = "Public Subnet 1 / 2"
 }
 
+variable "security_groups" {
+  type = string
+  description = "SG for ALB"
+}
 
 #------------
 # ALB Target Group
@@ -127,7 +131,3 @@ variable "Target_Protocol" {
   description = "Tranmission Control Protocol"
 }
 
-variable "vpc_id" {
-  type = string
-  description = ""
-}

@@ -16,7 +16,6 @@ network_mode = "awsvpc"
 require_compatibilities = ["FARGATE"]
 cpu = "256"
 memory = "512"
-execution_role_arn = module.iam.ecs_task
 name = "Cluster"
 image = "923673751050.dkr.ecr.eu-west-2.amazonaws.com/ec2toecsmigration"
 

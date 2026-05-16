@@ -31,8 +31,8 @@ module "ALB" {
   internal = var.internal
   ALBname = var.ALBname
   load_balancer_type = var.load_balancer_type
-  subnets = module.vpc.PrivateSubnet1
-  security_groups = module.security_group.ALB_Security_group
+  subnets = [module.vpc.PublicSubnet1.id, module.vpc.PublicSubnet2.id]
+  security_groups = [module.security_group.ALB_Security_group.id]
   Target_Port = var.Target_port
   Target_Protocol = var.Target_Protocol
   Target_type = var.Target_type

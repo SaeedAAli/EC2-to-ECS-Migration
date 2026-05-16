@@ -26,7 +26,7 @@ variable "security_groups" {
 # -------------
 # Target Group
 
-variable "Target_type" {
+variable "Target_group_name" {
   description = "string"
   type = string
 }
@@ -44,4 +44,9 @@ variable "Target_Port" {
 variable "Target_type" {
   type = string
   description = "alb"
+}
+
+variable "vpc_id" {
+  type = string
+  description = "VPC ID"
 }

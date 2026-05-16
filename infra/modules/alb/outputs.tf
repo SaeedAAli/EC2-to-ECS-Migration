@@ -11,4 +11,24 @@ output "internal" {
 }
 
 # ---
-#
+# Target Group Values
+
+output "port" {
+  value = aws_alb_target_group.TG.port
+}
+
+output "protocol" {
+  value = aws_alb_target_group.TG.protocol
+}
+
+output "target_type" {
+  value = aws_alb_target_group.TG.target_type
+}
+
+output "Target_group_name" {
+  value = aws_alb_target_group.TG.name
+}
+
+output "vpc_id" {
+  value = aws_alb_target_group.TG.vpc_id
+}

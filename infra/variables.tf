@@ -126,3 +126,8 @@ variable "Target_Protocol" {
   type = string
   description = "Tranmission Control Protocol"
 }
+
+variable "vpc_id" {
+  type = string
+  description = ""
+}

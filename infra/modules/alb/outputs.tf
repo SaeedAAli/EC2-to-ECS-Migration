@@ -7,16 +7,9 @@ output "load_balancer_type" {
 }
 
 output "internal" {
-  value = aws_alb.Internal
+  value = aws_alb.internal
 }
 
-output "subnets" {
-  value = aws_alb.ALB.subnets
-}
-
-output "security_groups" {
-  value = aws_alb.ALB.s
-}
 
 # ---
 # Target Group Values

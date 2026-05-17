@@ -29,7 +29,6 @@ resource "aws_ecs_service" "ecs" {
   name = "ecs"
   cluster = aws_ecs_cluster.caravan.id
   task_definition = aws_ecs_task_definition.TK.arn
-  iam_role = aws_iam
 
 
 }

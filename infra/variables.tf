@@ -98,16 +98,6 @@ variable "load_balancer_type" {
 
 }
 
-variable "subnets" {
-  type = string
-  description = "Public Subnet 1 / 2"
-}
-
-variable "security_groups" {
-  type = string
-  description = "SG for ALB"
-}
-
 #------------
 # ALB Target Group
 

@@ -21,7 +21,3 @@ output "cpu" {
 output "execution_role" {
   value = aws_ecs_task_definition.TK.execution_role_arn
 }
-
-output "task-role-arn" {
-  value = aws_ecs_task
-}

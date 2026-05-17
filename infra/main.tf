@@ -18,7 +18,7 @@ module "ECS" {
   cpu = var.cpu
   memory = var.memory
   name = var.name
-  execution_role = var.execution_role_arn
+  execution_role = 
   family = var.family
   network_mode = var.network_mode
   image = var.image
@@ -40,3 +40,7 @@ module "ALB" {
   vpc_id = module.vpc.vpc
 }
 
+module "iam" {
+  source = "./modules/iam"
+  
+}

@@ -18,11 +18,13 @@ module "ECS" {
   cpu = var.cpu
   memory = var.memory
   name = var.name
-  execution_role = 
+  execution_role = module.iam.ecs_task_execution_role_arn
   family = var.family
   network_mode = var.network_mode
   image = var.image
-  task-role-arn = var.task-role-arn
+  task-role-arn = module.iam.ecs_task_execution_role_arn
+  alb-target-group = module.ALB.target_type_arn
+  IAM = module.iam.ecs_task_execution_role_arn
 }
 
 
@@ -31,7 +33,7 @@ module "ALB" {
   internal = var.internal
   ALBname = var.ALBname
   load_balancer_type = var.load_balancer_type
-  subnets = [module.vpc.PublicSubnet1.id, module.vpc.PublicSubnet2.id]
+  subnets = [module.vpc.PublicSubnet1, module.vpc.PublicSubnet2]
   security_groups = [module.security_group.ALB_Security_group.id]
   Target_Port = var.Target_port
   Target_Protocol = var.Target_Protocol
@@ -42,5 +44,5 @@ module "ALB" {
 
 module "iam" {
   source = "./modules/iam"
-  
-}
+    
+  }

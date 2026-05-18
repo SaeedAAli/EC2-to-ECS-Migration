@@ -15,3 +15,11 @@ output "Subnet1_id" {
 output "Subnet2_id" {
   value = module.vpc.PublicSubnet2
 }
+
+output "iam_task" {
+  value = module.iam.ecs_task_execution_role_arn
+}
+
+output "ecs_name" {
+ value = module.iam.ecs_task_execution_role_name
+}

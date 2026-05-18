@@ -14,7 +14,7 @@ variable "network_mode" {
 }
 
 variable "require_compatibilities" {
-  type = string
+  type = list(string)
   description = "Set Launch for Fargate Serverless"
 }
 
@@ -43,4 +43,12 @@ variable "image" {
 variable "task-role-arn" {
   type = string
   description = "Task role arn"
+}
+
+variable "alb-target-group" {
+  type = string
+}
+
+variable "IAM" {
+  type = string
 }

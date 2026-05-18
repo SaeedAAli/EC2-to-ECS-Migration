@@ -52,7 +52,7 @@ variable "network_mode" {
 }
 
 variable "require_compatibilities" {
-  type = string
+  type = list(string)
   description = "Fargate Serverless"
 }
 
@@ -61,10 +61,6 @@ variable "memory" {
   description = "RAM Usage"
 }
 
-variable "execution_role_arn" {
-  type = string
-  description = "IAM ECS"
-}
 
 variable "name" {
   type = string

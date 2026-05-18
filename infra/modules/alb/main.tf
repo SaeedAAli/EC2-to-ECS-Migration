@@ -1,4 +1,4 @@
-resource "aws_alb" "ALB" {
+resource "aws_lb" "ALB" {
   name = var.ALBname
   internal = var.internal
   load_balancer_type = var.load_balancer_type
@@ -6,7 +6,7 @@ resource "aws_alb" "ALB" {
   subnets = var.subnets
 }
 
-resource "aws_alb_target_group" "TG" {
+resource "aws_lb_target_group" "TG" {
   name = var.ALBname
   target_type = var.Target_type
   port = var.Target_Port
@@ -23,10 +23,10 @@ resource "aws_alb_target_group" "TG" {
    }
 }
 
-resource "aws_alb_listener" "alb_listener" {
-  load_balancer_arn = aws_alb.ALB.arn
+resource "aws_lb_listener" "lb_listener" {
+  load_balancer_arn = aws_lb.ALB.arn
   default_action {
-    target_group_arn = aws_alb_target_group.TG.arn
+    target_group_arn = aws_lb_target_group.TG.arn
     type = "forward"
   }
     port = 80

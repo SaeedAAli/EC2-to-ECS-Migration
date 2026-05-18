@@ -25,10 +25,16 @@ resource "aws_ecs_task_definition" "TK" {
   ])
 }
 
-resource "aws_ecs_service" "ecs" {
-  name = "ecs"
+resource "aws_ecs_service" "ecs-service" {
+  name = "ecs-service"
   cluster = aws_ecs_cluster.caravan.id
   task_definition = aws_ecs_task_definition.TK.arn
+  desired_count = 3
 
+    load_balancer {
+      target_group_arn = var.alb-target-group
+      container_name = "ecs"
+      container_port = "5002"
+    }
 
 }

@@ -1,44 +1,45 @@
 output "name" {
-  value = aws_alb.ALB.name
+  value = aws_lb.ALB.name
 }
 
 output "load_balancer_type" {
-  value = aws_alb.ALB.load_balancer_type
+  value = aws_lb.ALB.load_balancer_type
 }
 
-output "internal" {
-  value = aws_alb.internal
-}
+
 
 
 # ---
 # Target Group Values
 
 output "port" {
-  value = aws_alb_target_group.TG.port
+  value = aws_lb_target_group.TG.port
 }
 
 output "protocol" {
-  value = aws_alb_target_group.TG.protocol
+  value = aws_lb_target_group.TG.protocol
 }
 
 output "target_type" {
-  value = aws_alb_target_group.TG.target_type
+  value = aws_lb_target_group.TG.target_type
 }
 
 output "Target_group_name" {
-  value = aws_alb_target_group.TG.name
+  value = aws_lb_target_group.TG.name
 }
 
 output "vpc_id" {
-  value = aws_alb_target_group.TG.vpc_id
+  value = aws_lb_target_group.TG.vpc_id
 }
 
+output "target_group_arn" {
+  value = aws_lb_target_group.TG.arn
+}
 # -----------------
 #Listener
 output "Listener" {
-  value = aws_alb_listener.alb_listener.arn
+  value = aws_lb_listener.lb_listener.arn
 }
 output "Load_Balancer_ARN" {
-  value = aws_alb_listener.alb_listener.load_balancer_arn
+  value = aws_lb_listener.lb_listener.load_balancer_arn
 }

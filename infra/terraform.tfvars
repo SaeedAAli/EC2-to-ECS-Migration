@@ -8,8 +8,6 @@ private_subnet2 = "10.0.2.0/24"
 ## ------------------------------------
 ## Security Group TF.Vars
 
-
-
 ## Ecs Vars
 family = "app"
 network_mode = "awsvpc"
@@ -32,3 +30,6 @@ Target_group_name = "Load Balancer"
 Target_port = 80
 Target_Protocol = "TCP"
 Target_type = "alb"
+
+
+#-------------

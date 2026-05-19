@@ -54,8 +54,3 @@ variable "vpc_id" {
 
 # ------
 #Route 53
-
-variable "r53_records" {
-  type = string
-  description = "directs your traffic on where it needs to go"
-}

@@ -44,6 +44,3 @@ output "Load_Balancer_ARN" {
   value = aws_lb_listener.lb_listener.load_balancer_arn
 }
 
-output "R53" {
-  value = aws_lb.application_load_balancer.zone_id
-}

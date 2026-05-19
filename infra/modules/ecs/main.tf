@@ -37,4 +37,9 @@ resource "aws_ecs_service" "ecs-service" {
       container_port = "5002"
     }
 
+    network_configuration {
+      subnets = var.subnets_ecs
+      assign_public_ip = false
+      security_groups = [var.ecs_sg]
+    }
 }

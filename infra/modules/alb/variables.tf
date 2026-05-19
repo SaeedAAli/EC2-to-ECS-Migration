@@ -18,11 +18,10 @@ variable "subnets" {
   description = "Both Public Subnets"
 }
 
-variable "security_groups" {
-  type = list(string)
-  description = "SG for ALB"
+variable "alb_sg" {
+  type = string
+  description = "alb sg"
 }
-
 
 
 # -------------
@@ -53,3 +52,10 @@ variable "vpc_id" {
   description = "VPC ID"
 }
 
+# ------
+#Route 53
+
+variable "r53_records" {
+  type = string
+  description = "directs your traffic on where it needs to go"
+}

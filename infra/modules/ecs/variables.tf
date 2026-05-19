@@ -52,3 +52,11 @@ variable "alb-target-group" {
 variable "IAM" {
   type = string
 }
+
+variable "subnets_ecs" {
+  type = list(string)
+}
+
+variable "ecs_sg" {
+  type = string
+}

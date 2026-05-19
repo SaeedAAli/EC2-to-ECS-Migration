@@ -1,9 +1,9 @@
-resource "aws_lb" "ALB" {
+resource "aws_lb" "application_load_balancer" {
   name = var.ALBname
   internal = var.internal
   load_balancer_type = var.load_balancer_type
-  security_groups = var.security_groups
   subnets = var.subnets
+  security_groups = [var.alb_sg]
 }
 
 resource "aws_lb_target_group" "TG" {
@@ -18,17 +18,27 @@ resource "aws_lb_target_group" "TG" {
      unhealthy_threshold = 2
      timeout = 3
      interval = 30
-     path = "/"
+     path = "/health"
      matcher = "200"
    }
 }
 
 resource "aws_lb_listener" "lb_listener" {
-  load_balancer_arn = aws_lb.ALB.arn
+  load_balancer_arn = aws_lb.application_load_balancer.arn
   default_action {
     target_group_arn = aws_lb_target_group.TG.arn
     type = "forward"
   }
     port = 80
     protocol = "HTTP"
+}
+
+resource "aws_lb_listener" "HTTPS" {
+  load_balancer_arn = aws_lb.application_load_balancer.arn
+  default_action {
+    target_group_arn = aws_lb_target_group.TG.arn
+    type = "forward"
+  }
+  port = 443
+  protocol = "HTTPS"
 }

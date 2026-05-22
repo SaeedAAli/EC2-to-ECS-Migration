@@ -23,8 +23,11 @@ module "ECS" {
   network_mode = var.network_mode
   image = var.image
   task-role-arn = module.iam.ecs_task_execution_role_arn
-  alb-target-group = module.ALB.target_type_arn
+  alb-target-group = module.ALB.target_group_arn
   IAM = module.iam.ecs_task_execution_role_arn
+  subnets_ecs = [module.vpc.PrivateSubnet1, module.vpc.PrivateSubnet2]
+  ecs_sg = module.security_group.ECS_TASKS
+  
 }
 
 
@@ -34,15 +37,22 @@ module "ALB" {
   ALBname = var.ALBname
   load_balancer_type = var.load_balancer_type
   subnets = [module.vpc.PublicSubnet1, module.vpc.PublicSubnet2]
-  security_groups = [module.security_group.ALB_Security_group.id]
   Target_Port = var.Target_port
   Target_Protocol = var.Target_Protocol
   Target_type = var.Target_type
   Target_group_name = var.Target_group_name
   vpc_id = module.vpc.vpc
+  alb_sg = module.security_group.ALB_Security_group
 }
 
 module "iam" {
   source = "./modules/iam"
     
   }
+
+module "Route53" {
+  source = "./modules/route53"
+  dns_name = module.ALB.dns_name
+  alb_zone_id = module.ALB.zone_id
+  subdomain = var.subdomain
+}

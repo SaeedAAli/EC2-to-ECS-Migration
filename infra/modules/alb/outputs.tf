@@ -6,8 +6,13 @@ output "load_balancer_type" {
   value = aws_lb.application_load_balancer.load_balancer_type
 }
 
+output "zone_id" {
+  value = aws_lb.application_load_balancer.zone_id
+}
 
-
+output "dns_name" {
+  value = aws_lb.application_load_balancer.dns_name
+}
 
 # ---
 # Target Group Values

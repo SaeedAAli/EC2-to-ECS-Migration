@@ -7,5 +7,9 @@ image_tag_mutability = "Mutable"
  }
     tags = {
         Name = "ECS APP"
+   }
     }
-    }
+
+resource "aws_ecr_h" "name" {
+  
+}

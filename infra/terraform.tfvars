@@ -31,5 +31,6 @@ Target_port = 80
 Target_Protocol = "TCP"
 Target_type = "alb"
 
-
-#-------------
+# ---
+#Route53
+subdomain = "ec2toecsmigration.saeedaali.uk"

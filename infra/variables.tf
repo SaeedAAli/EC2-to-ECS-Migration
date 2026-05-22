@@ -69,12 +69,6 @@ variable "name" {
 
 
 
-
-
-
-
-
-
 #--------------------------------
 # Application Load Balancer
 
@@ -116,4 +110,19 @@ variable "Target_Protocol" {
   type = string
   description = "Tranmission Control Protocol"
 }
+
+variable "DNS_ALB" {
+  type = string
+  description = "."
+}
+
+# ------
+#Route53 Records
+
+variable "subdomain" {
+  type = string
+  description = ".."
+}
+
+
 

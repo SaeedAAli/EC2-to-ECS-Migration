@@ -23,3 +23,13 @@ output "iam_task" {
 output "ecs_name" {
  value = module.iam.ecs_task_execution_role_name
 }
+
+#----------
+#Route53
+output "subdomain" {
+  value = mod
+}
+
+output "dns_id" {
+  value = module.ALB.dns_alb
+}

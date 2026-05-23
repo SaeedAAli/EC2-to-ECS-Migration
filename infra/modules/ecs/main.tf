@@ -45,6 +45,3 @@ resource "aws_ecs_service" "ecs-service" {
 }
 
 
-resource "" "name" {
-  
-}

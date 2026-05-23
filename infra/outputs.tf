@@ -27,9 +27,9 @@ output "ecs_name" {
 #----------
 #Route53
 output "subdomain" {
-  value = mod
+  value = module.Route53.subdomain
 }
 
-output "dns_id" {
-  value = module.ALB.dns_alb
+output "dns_name" {
+  value = module.ALB.dns_name
 }

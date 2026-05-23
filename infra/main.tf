@@ -56,3 +56,8 @@ module "Route53" {
   alb_zone_id = module.ALB.zone_id
   subdomain = var.subdomain
 }
+
+module "acm" {
+  source = "./modules/acm"
+  dns_name = module.Route53.subdomain
+}

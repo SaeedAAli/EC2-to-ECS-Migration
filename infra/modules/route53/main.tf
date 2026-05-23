@@ -25,10 +25,17 @@ resource "aws_route53_record" "Root" {
   }
 }
 
-
-
-resource "aws_route53_health_check" "name" {
+resource "aws_route53_health_check" "HTTP" {
   request_interval = "30"
-  type = "Https"
-  
+  type = "HTTP"
+  resource_path = "/"
+  failure_threshold = "3"
+}
+
+
+resource "aws_route53_health_check" "HTTPS" {
+  request_interval = "30"
+  type = "HTTPS"
+  resource_path = "/"
+  failure_threshold = "3"
 }

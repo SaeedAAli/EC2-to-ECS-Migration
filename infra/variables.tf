@@ -111,10 +111,6 @@ variable "Target_Protocol" {
   description = "Tranmission Control Protocol"
 }
 
-variable "DNS_ALB" {
-  type = string
-  description = "."
-}
 
 # ------
 #Route53 Records

@@ -3,6 +3,8 @@ resource "aws_acm_certificate" "cert" {
   validation_method = "DNS"
 }
 
-resource "aws_acm_certificate_validation" "name" {
-  
-}
+
+
+
+
+

@@ -13,3 +13,8 @@ output "HTTP" {
 output "HTTPS" {
   value = aws_route53_health_check.HTTPS.type
 }
+
+
+output "Root" {
+  value = aws_route53_record.Root
+}

@@ -18,11 +18,19 @@ resource "aws_ecs_task_definition" "TK" {
         hostPort = 5002
         protocol = "tcp"
       }
-      ]
     
-    
+      ],
+      "logConfiguration": {
+        logDriver: "awslogs"
+        awslogs-group: "ecs"
+        awslogs-stream-prefix: "ecs"
+        awslogs-region: "eu-west-2"
+      }
     }
+    
   ])
+
+  
 }
 
 resource "aws_ecs_service" "ecs-service" {
@@ -45,3 +53,6 @@ resource "aws_ecs_service" "ecs-service" {
 }
 
 
+resource "aws_autoscaling" "name" {
+  
+}

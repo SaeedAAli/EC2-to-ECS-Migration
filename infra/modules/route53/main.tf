@@ -39,3 +39,5 @@ resource "aws_route53_health_check" "HTTPS" {
   resource_path = "/"
   failure_threshold = "3"
 }
+
+

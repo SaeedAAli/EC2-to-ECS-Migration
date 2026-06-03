@@ -1,6 +1,7 @@
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
   enable_dns_hostnames = true
+  enable_dns_support = true
 
   tags = {
     Name = "Vpc For ECS"
@@ -54,6 +55,11 @@ resource "aws_route" "r" {
   route_table_id = aws_route_table.public.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.IGW.id
+}
+
+resource "aws_route" "Nat_route" {
+  route_table_id = aws_route_table.private.id
+  destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id = aws_nat_gateway.NATGW_PB1.id
 }
 

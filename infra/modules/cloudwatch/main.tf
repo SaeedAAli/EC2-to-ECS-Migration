@@ -6,3 +6,8 @@ resource "aws_cloudwatch_log_group" "ecs" {
     Name = "Group Log"
   }
 }
+
+
+resource "aws_cloudwatch" "name" {
+  
+}

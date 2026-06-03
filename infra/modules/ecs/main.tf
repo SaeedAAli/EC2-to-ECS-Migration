@@ -9,9 +9,9 @@ resource "aws_ecs_task_definition" "TK" {
       name = var.name
       family = var.family
       image = var.image
-      cpu = var.cpu
-      memory = var.memory
-      require_compatibilites = var.require_compatibilities
+      cpu = 256
+      memory = 512
+      require_compatibilites = ["FARGATE"]
       network_mode = var.network_mode
       execution_role_arn = var.execution_role
       portMappings = [{

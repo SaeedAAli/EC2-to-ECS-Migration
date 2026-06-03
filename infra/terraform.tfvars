@@ -28,8 +28,8 @@ internal = false
 # Target Group
 Target_group_name = "Load Balancer"
 Target_port = 80
-Target_Protocol = "TCP"
-Target_type = "alb"
+Target_Protocol = "HTTP"
+Target_type = "ip"
 
 # ---
 #Route53

@@ -93,7 +93,7 @@ resource "aws_route_table_association" "Private_Subnet_2" {
 
 resource "aws_nat_gateway" "NATGW_PB1" {
   subnet_id = aws_subnet.Public_Subnet_1.id
-  allocation_id = aws_eip.eip
+  allocation_id = aws_eip.eip.id
 
   tags = {
     Name = "NGW"

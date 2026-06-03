@@ -11,7 +11,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "Public_Subnet_1" {
   vpc_id = aws_vpc.main.id
   cidr_block = var.PublicSubnet1
-  availability_zone = "eu-west-1a"
+  availability_zone = "eu-west-2a"
     tags = {
       Name = "Public Subnet"
     }
@@ -21,19 +21,19 @@ resource "aws_subnet" "Public_Subnet_1" {
 resource "aws_subnet" "Public_Subnet_2" {
   vpc_id = aws_vpc.main.id
   cidr_block = var.PublicSubnet2
-  availability_zone = "eu-west-2a"
+  availability_zone = "eu-west-2b"
 }
 
 resource "aws_subnet" "Private_Subnet_1" {
   vpc_id = aws_vpc.main.id
   cidr_block = var.PrivateSubnet1
-  availability_zone = "eu-west-1a"
+  availability_zone = "eu-west-2a"
 }
 
 resource "aws_subnet" "Private_Subnet_2" {
   vpc_id = aws_vpc.main.id
   cidr_block = var.PrivateSubnet2
-  availability_zone = "eu-west-2a"
+  availability_zone = "eu-west-2b"
 }
 
 resource "aws_internet_gateway" "IGW" {
@@ -54,6 +54,7 @@ resource "aws_route" "r" {
   route_table_id = aws_route_table.public.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.IGW.id
+  nat_gateway_id = aws_nat_gateway.NATGW_PB1.id
 }
 
 resource "aws_route_table_association" "Public_Subnet_1" {
@@ -70,12 +71,13 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
   tags = {
     Name = "PRV Table"
-  }  
+  } 
 }
 
 resource "aws_route_table_association" "Private_Subnet_1" {
 subnet_id = aws_subnet.Private_Subnet_1.id
 route_table_id = aws_route_table.private.id
+
 }
 
 resource "aws_route_table_association" "Private_Subnet_2" {
@@ -95,5 +97,5 @@ resource "aws_nat_gateway" "NATGW_PB1" {
 
 
 resource "aws_eip" "eip" {
-
+  domain = "vpc"
 }

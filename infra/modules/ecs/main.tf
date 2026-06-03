@@ -10,6 +10,7 @@ resource "aws_ecs_task_definition" "TK" {
       family = var.family
       image = var.image
       cpu = var.cpu
+      memory = var.memory
       require_compatibilites = var.require_compatibilities
       network_mode = var.network_mode
       execution_role_arn = var.execution_role
@@ -21,10 +22,12 @@ resource "aws_ecs_task_definition" "TK" {
 
       ],
       "logConfiguration": {
-        logDriver: "awslogs"
+        logDriver: "awslogs",
+        "options": {
         awslogs-group: "ecs"
         awslogs-stream-prefix: "ecs"
         awslogs-region: "eu-west-2"
+        }
       }
     }
     

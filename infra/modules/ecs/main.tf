@@ -4,16 +4,18 @@ resource "aws_ecs_cluster" "caravan" {
 
 resource "aws_ecs_task_definition" "TK" {
   family = "caravan_task"
+  cpu = var.cpu
+  memory = var.memory
+  network_mode = var.network_mode
+  requires_compatibilities = var.require_compatibilities
+  execution_role_arn = var.execution_role
+
   container_definitions = jsonencode([
     {
       name = var.name
-      family = var.family
       image = var.image
       cpu = 256
       memory = 512
-      require_compatibilites = ["FARGATE"]
-      network_mode = var.network_mode
-      execution_role_arn = var.execution_role
       portMappings = [{
         containerPort = 5002
         hostPort = 5002
@@ -24,9 +26,9 @@ resource "aws_ecs_task_definition" "TK" {
       "logConfiguration": {
         logDriver: "awslogs",
         "options": {
-        awslogs-group: "ecs"
-        awslogs-stream-prefix: "ecs"
-        awslogs-region: "eu-west-2"
+        "awslogs-group": "ecs"
+        "awslogs-stream-prefix": "ecs",
+        "awslogs-region": "eu-west-2"
         }
       }
     }
@@ -41,6 +43,7 @@ resource "aws_ecs_service" "ecs-service" {
   cluster = aws_ecs_cluster.caravan.id
   task_definition = aws_ecs_task_definition.TK.arn
   desired_count = 3
+  launch_type = ["FARGATE"]
 
     load_balancer {
       target_group_arn = var.alb-target-group
@@ -53,6 +56,7 @@ resource "aws_ecs_service" "ecs-service" {
       assign_public_ip = false
       security_groups = [var.ecs_sg]
     }
+    
 }
 
 
@@ -85,8 +89,4 @@ resource "aws_appautoscaling_policy" "ecs_policy" {
 }
 
 
-
-#resource "aws_cloudwatch_metric_alarm" "name" {
-  
-#}
 

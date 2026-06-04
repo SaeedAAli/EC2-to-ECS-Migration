@@ -27,7 +27,7 @@ internal = false
 #---------------
 # Target Group
 Target_group_name = "Load Balancer"
-Target_port = 80
+Target_port = 5002
 Target_Protocol = "HTTP"
 Target_type = "ip"
 

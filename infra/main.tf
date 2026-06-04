@@ -61,9 +61,15 @@ module "acm" {
   source = "./modules/acm"
   dns_name = module.Route53.subdomain
   zone_id = module.Route53.route53_zone
+
 }
 
 
 module "ecr" {
   source = "./modules/ecr"
+}
+
+
+module "cloudwatch" {
+  source = "./modules/cloudwatch"
 }

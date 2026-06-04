@@ -21,6 +21,7 @@ resource "aws_lb_target_group" "TG" {
      path = "/health"
      matcher = "200"
    }
+   
 }
 
 resource "aws_lb_listener" "lb_listener" {

@@ -27,6 +27,7 @@ module "ECS" {
   IAM = module.iam.ecs_task_execution_role_arn
   subnets_ecs = [module.vpc.PrivateSubnet1, module.vpc.PrivateSubnet2]
   ecs_sg = module.security_group.ECS_TASKS
+  cloudwatch = module.cloudwatch.log_group
   
 }
 
@@ -43,6 +44,7 @@ module "ALB" {
   Target_group_name = var.Target_group_name
   vpc_id = module.vpc.vpc
   alb_sg = module.security_group.ALB_Security_group
+  certification = module.acm.http_cert
 }
 
 module "iam" {
@@ -72,4 +74,5 @@ module "ecr" {
 
 module "cloudwatch" {
   source = "./modules/cloudwatch"
+
 }

@@ -36,6 +36,7 @@ resource "aws_lb_listener" "lb_listener" {
 
 resource "aws_lb_listener" "HTTPS" {
   load_balancer_arn = aws_lb.application_load_balancer.arn
+  certificate_arn = var.certification
   default_action {
     target_group_arn = aws_lb_target_group.TG.arn
     type = "forward"

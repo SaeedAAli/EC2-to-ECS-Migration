@@ -54,4 +54,8 @@ variable "vpc_id" {
 
 
 # ------
-#Route 53
+#Route 53 / ACM
+
+variable "certification" {
+  description = "For HTTPS"
+}

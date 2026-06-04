@@ -60,3 +60,8 @@ variable "subnets_ecs" {
 variable "ecs_sg" {
   type = string
 }
+
+
+variable "cloudwatch" {
+  type = string
+}

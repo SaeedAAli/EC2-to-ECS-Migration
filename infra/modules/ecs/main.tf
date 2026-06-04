@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "TK" {
   network_mode = var.network_mode
   requires_compatibilities = var.require_compatibilities
   execution_role_arn = var.execution_role
-
+  task_role_arn = var.task-role-arn
   container_definitions = jsonencode([
     {
       name = var.name
@@ -26,7 +26,7 @@ resource "aws_ecs_task_definition" "TK" {
       "logConfiguration": {
         logDriver: "awslogs",
         "options": {
-        "awslogs-group": "ecs"
+        "awslogs-group": var.cloudwatch
         "awslogs-stream-prefix": "ecs",
         "awslogs-region": "eu-west-2"
         }
@@ -43,11 +43,11 @@ resource "aws_ecs_service" "ecs-service" {
   cluster = aws_ecs_cluster.caravan.id
   task_definition = aws_ecs_task_definition.TK.arn
   desired_count = 3
-  launch_type = ["FARGATE"]
+  launch_type = "FARGATE"
 
     load_balancer {
       target_group_arn = var.alb-target-group
-      container_name = "ecs"
+      container_name = var.name
       container_port = "5002"
     }
 

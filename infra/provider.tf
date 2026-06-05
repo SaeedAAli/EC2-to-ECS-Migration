@@ -10,3 +10,12 @@ terraform {
 provider "aws" {
   
 }
+
+terraform  {
+  backend "s3" {
+  bucket = "ec2toecsmigration"
+  region = "eu-west-2"
+   key = "terraform.tfstate"
+  }
+}
+

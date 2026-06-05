@@ -47,7 +47,7 @@ resource "aws_ecs_service" "ecs-service" {
 
     load_balancer {
       target_group_arn = var.alb-target-group
-      container_name = var.name
+      container_name = "Cluster"
       container_port = "5002"
     }
 

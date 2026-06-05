@@ -57,8 +57,6 @@ module "Route53" {
   dns_name = module.ALB.dns_name
   alb_zone_id = module.ALB.zone_id
   subdomain = var.subdomain
-  domain_valid_options = module.acm.http_cert
-  cert_arn = module.acm.domain_valid_options
 }
 
 module "acm" {

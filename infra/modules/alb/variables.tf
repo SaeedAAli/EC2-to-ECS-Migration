@@ -59,3 +59,7 @@ variable "vpc_id" {
 variable "certification" {
   description = "For HTTPS"
 }
+
+variable "certification_validation_for_https" {
+  
+}

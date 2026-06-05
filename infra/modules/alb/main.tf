@@ -43,6 +43,8 @@ resource "aws_lb_listener" "HTTPS" {
   }
   port = 443
   protocol = "HTTPS"
+
+  depends_on = [ var.certification_validation_for_https]
 }
 
 

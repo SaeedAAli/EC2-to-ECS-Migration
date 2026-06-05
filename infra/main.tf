@@ -45,6 +45,7 @@ module "ALB" {
   vpc_id = module.vpc.vpc
   alb_sg = module.security_group.ALB_Security_group
   certification = module.acm.http_cert
+  certification_validation_for_https = module.acm.cerification_validation
 }
 
 module "iam" {

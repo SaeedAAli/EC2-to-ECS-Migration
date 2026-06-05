@@ -38,7 +38,7 @@ EXPOSE 5002
 # Default command that starts your application
 # When doing this, 
 
-CMD [ "python", "-m", "gunicorn", "--bind", "0.0.0.0:8000", "wsgi:app" ]
+CMD [ "python", "-m", "gunicorn", "--bind", "0.0.0.0:5002", "wsgi:app" ]
 
 
 

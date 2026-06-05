@@ -32,6 +32,7 @@ resource "aws_route53_health_check" "HTTP" {
   type = "HTTP"
   resource_path = "/"
   failure_threshold = "3"
+  fqdn = var.subdomain
 }
 
 
@@ -40,6 +41,7 @@ resource "aws_route53_health_check" "HTTPS" {
   type = "HTTPS"
   resource_path = "/"
   failure_threshold = "3"
+  fqdn = var.subdomain
 }
 
 

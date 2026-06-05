@@ -11,7 +11,9 @@ resource "aws_route53_record" "ec2toECS" {
     zone_id = var.alb_zone_id
     evaluate_target_health = true
   }
-}
+
+    
+  }
 
 
 resource "aws_route53_record" "Root" {

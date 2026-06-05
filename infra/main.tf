@@ -27,7 +27,7 @@ module "ECS" {
   IAM = module.iam.ecs_task_execution_role_arn
   subnets_ecs = [module.vpc.PrivateSubnet1, module.vpc.PrivateSubnet2]
   ecs_sg = module.security_group.ECS_TASKS
-  cloudwatch = module.cloudwatch.log_group
+  cloudwatch = module.cloudwatch.log_group_name
   
 }
 
@@ -57,6 +57,8 @@ module "Route53" {
   dns_name = module.ALB.dns_name
   alb_zone_id = module.ALB.zone_id
   subdomain = var.subdomain
+  domain_valid_options = module.acm.http_cert
+  cert_arn = module.acm.domain_valid_options
 }
 
 module "acm" {

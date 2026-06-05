@@ -12,3 +12,12 @@ variable "dns_name" {
   type = string
   description = "dns name of load balancer"
 }
+
+variable "cert_arn" {
+  type = string
+
+}
+
+variable "domain_valid_options" {
+  type = string
+}

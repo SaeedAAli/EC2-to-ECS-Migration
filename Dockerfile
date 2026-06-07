@@ -18,6 +18,8 @@ WORKDIR /app
 COPY --from=build /app /app/
 
 COPY --from=build /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
+
+COPY --from=build /usr/local/bin /usr/local/bin
 #
 # Creating a Non Root User and giving it Permission
 RUN  adduser -D appuser

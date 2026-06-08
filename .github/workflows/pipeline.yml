@@ -1,0 +1,8 @@
+name: Practicing Writing CI Pipleine to feel more comfortable
+on: [push]
+
+
+jobs-run: ubuntu-latest
+  steps:
+    -name : "Checking My Understanding just to make sure if i need any errors you zimmmy"
+     uses: actions/checkout/@v4

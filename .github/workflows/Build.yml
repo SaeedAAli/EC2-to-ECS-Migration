@@ -19,7 +19,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::923673751050:role/OIDC
           aws-region: eu-west-2
-          audience: sts-amazonaws.com
+          audience: sts.amazonaws.com
 
 
       - name: Log Into ECR

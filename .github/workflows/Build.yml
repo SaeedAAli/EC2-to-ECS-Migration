@@ -37,10 +37,10 @@ jobs:
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          image-ref: ${{ steps.ecr-login.outputs.registry }}/ec2toecsmigration:${{ github.sha }}'
+          image-ref: ${{ steps.ecr-login.outputs.registry }}/ec2toecsmigration:${{ github.sha }}
           format: 'table'
           exit-code: '1'
-          severtiy: 'CRITICAL,HIGH'
+          severity: 'CRITICAL,HIGH'
  
 
       - name: Pushing Docker image to ECR

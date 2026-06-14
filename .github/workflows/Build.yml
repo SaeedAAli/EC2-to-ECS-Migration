@@ -48,8 +48,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          region: eu-west-2
-          tags: ${{ steps.ecr-login.outputs.registry }}/ec2toecsmigration:${{ github.sha }}'
+          push: true
+          tags: ${{ steps.ecr-login.outputs.registry }}/ec2toecsmigration:${{ github.sha }}
 
 
     

@@ -1,44 +1,40 @@
 # Base Image Foundation && Build Stage
-FROM python:3.8-alpine AS build
+FROM python:3.12-alpine3.21 AS build
 
 WORKDIR /app
 
-# Copying the Files into the Image
-COPY ec2-legacy-app/app/ .
+RUN apk update && apk  upgrade --no-cache
+
+COPY ec2-legacy-app/app/requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Installing Werkzeug, Flask, Gunicorn
-RUN  pip install -r requirements.txt
 
-
-## Runtime Stage
-FROM python:3.8-alpine
+FROM python:3.12-alpine
 
 WORKDIR /app 
 
 COPY --from=build /app /app/
 
-COPY --from=build /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
+COPY --from=build /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+COPY --from=build /usr/local/bin/gunicorn /usr/local/bin/gunicorn
 
-COPY --from=build /usr/local/bin /usr/local/bin
-#
-# Creating a Non Root User and giving it Permission
+COPY ec2-legacy-app/app .
+
+
+
 RUN  adduser -D appuser
 
 RUN chown -R appuser:appuser /app
 
 USER appuser
 
-## This is a debug line to make sure if Site package is located
-RUN ls -la /usr/local/lib/python3.8/site-packages
 
-# Making sure the Image is Healthy by verifiying the URL via CURL
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "curl", "-f", "http://localhost:5002/health" ]
 
 
 EXPOSE 5002
-
-# Default command that starts your application
-# When doing this, 
 
 CMD [ "gunicorn", "--bind", "0.0.0.0:5002", "wsgi:app" ]
 

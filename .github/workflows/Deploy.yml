@@ -32,7 +32,7 @@ jobs:
 
              - name: Format terraform
                working-directory: ./infra
-               run: terraform fmt -check
+               run: terraform fmt -check -recursive -diff
 
              - name: terraform validation
                working-directory: ./infra

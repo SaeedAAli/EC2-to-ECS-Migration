@@ -1,0 +1,59 @@
+name: Deploying Infastructure to ECS
+on:
+     workflow_dispatch:
+    
+permissions:
+    id-token: write
+    contents: read
+
+    
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment: Deployment
+        steps:
+             - name: Checkout
+               uses: actions/checkout@v4
+        
+             - name: OpenID Connect
+               uses: aws-actions/configure-aws-credentials@v4
+               with:
+                    aws-region: eu-west-2
+                    role-to-assume: arn:aws:iam::923673751050:role/OIDC
+                    audience: sts.amazonaws.com
+        
+            
+             - name: Checkout Terraform
+               uses: hashicorp/setup-terraform@v3
+
+             - name: Initalize backend terraform
+               working-directory: ./infra
+               run:  terraform init
+
+             - name: Format terraform
+               working-directory: ./infra
+               run: terraform fmt -check
+
+             - name: terraform validation
+               working-directory: ./infra
+               run: terraform validate
+            
+             - name: terraform plan
+               working-directory: ./infra
+               run: terraform plan
+
+             - name: terraform apply
+               working-directory: ./infra
+               run: terraform apply -auto-approve
+
+             - name: Deploy to ECS
+               run: |
+                   aws ecs update-service \
+                   --cluster caravan \
+                   --service ecs-service \
+                   --force-new-deployment
+
+
+
+                
+            

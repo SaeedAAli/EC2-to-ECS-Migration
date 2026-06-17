@@ -46,12 +46,7 @@ jobs:
                working-directory: ./infra
                run: terraform apply -auto-approve
 
-             - name: Deploy to ECS
-               run: |
-                   aws ecs update-service \
-                   --cluster caravan \
-                   --service ecs-service \
-                   --force-new-deployment
+
 
 
 

@@ -1,10 +1,10 @@
 variable "dns_name" {
-  type = string
+  type        = string
   description = "this is for ec2 to ecs migration"
 }
 
 variable "zone_id" {
-  type = string
+  type        = string
   description = ".."
 }
 

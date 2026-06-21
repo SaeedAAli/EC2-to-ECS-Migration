@@ -1,9 +1,9 @@
 variable "cloudwatch" {
-  type = string
+  type    = string
   default = "Cloudwatch for App"
 }
 
 variable "number" {
-  type = number
+  type    = number
   default = 30
 }

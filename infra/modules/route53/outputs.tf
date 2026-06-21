@@ -1,5 +1,5 @@
 output "route53_zone" {
-    value = aws_route53_zone.public_zone.zone_id
+    value = aws_route53_zone.subdomain_zone.zone_id
 }
 
 output "subdomain" {
@@ -15,6 +15,4 @@ output "HTTPS" {
 }
 
 
-output "Root" {
-  value = aws_route53_record.Root
-}
+

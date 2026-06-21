@@ -1,25 +1,25 @@
 variable "ALBname" {
-  type = string
+  type        = string
   description = "Name of the Application Load Balancer"
 }
 
 variable "load_balancer_type" {
-  type = string
+  type        = string
   description = "Type of Load Balancer which is application"
 }
 
 variable "internal" {
-  type = string
+  type        = string
   description = "If true, LB will be internal defaults to false"
 }
 
 variable "subnets" {
-  type = list(string)
+  type        = list(string)
   description = "Both Public Subnets"
 }
 
 variable "alb_sg" {
-  type = string
+  type        = string
   description = "alb sg"
 }
 
@@ -29,26 +29,26 @@ variable "alb_sg" {
 
 variable "Target_group_name" {
   description = "string"
-  type = string
+  type        = string
 }
 
 variable "Target_Protocol" {
-  type = string
+  type        = string
   description = "TCP"
 }
 
 variable "Target_Port" {
-  type = number
+  type        = number
   description = "Route to TG"
 }
 
 variable "Target_type" {
-  type = string
+  type        = string
   description = "alb"
 }
 
 variable "vpc_id" {
-  type = string
+  type        = string
   description = "VPC ID"
 }
 
@@ -61,5 +61,5 @@ variable "certification" {
 }
 
 variable "certification_validation_for_https" {
-  
+
 }

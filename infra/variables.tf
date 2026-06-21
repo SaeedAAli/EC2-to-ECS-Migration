@@ -1,27 +1,27 @@
 ## Virtual Private Cloud
 
 variable "vpc_cidr" {
-  type = string
+  type        = string
   description = "cidr block"
 }
 
 variable "public_subnet1" {
-  type = string
+  type        = string
   description = "Public Subnet 1 CIDR"
 }
 
 variable "public_subnet2" {
-  type = string
+  type        = string
   description = "Public Subnet 2 CIDR"
 }
 
 variable "private_subnet1" {
-  type = string
+  type        = string
   description = "Private Subnet 1 CIDR"
 }
 
 variable "private_subnet2" {
-  type = string
+  type        = string
   description = "Private Subnet 2 CIDR"
 }
 
@@ -30,40 +30,40 @@ variable "private_subnet2" {
 
 
 variable "family" {
-  type = string
+  type        = string
   description = "Name of the Application"
 }
 
 
 variable "cpu" {
-  type = string
+  type        = string
   description = "Amount of Cores within TK"
 }
 
 variable "image" {
-  type = string
+  type        = string
   description = "Docker Image"
 }
 
 variable "network_mode" {
-  type = string
+  type        = string
   description = "Which VPC will it be connected to"
 
 }
 
 variable "require_compatibilities" {
-  type = list(string)
+  type        = list(string)
   description = "Fargate Serverless"
 }
 
 variable "memory" {
-  type = string
+  type        = string
   description = "RAM Usage"
 }
 
 
 variable "name" {
-  type = string
+  type        = string
   description = "Name of Cluster"
 }
 
@@ -73,17 +73,17 @@ variable "name" {
 # Application Load Balancer
 
 variable "ALBname" {
-  type = string
+  type        = string
   description = "Name of the Load Balancer"
 }
 
 variable "internal" {
-  type = string
+  type        = string
   description = "If false it will work"
 }
 
 variable "load_balancer_type" {
-  type = string
+  type        = string
   description = "Type of Load Balancer - ALB or CLB or NLB"
 
 }
@@ -92,22 +92,22 @@ variable "load_balancer_type" {
 # ALB Target Group
 
 variable "Target_group_name" {
-  type = string
+  type        = string
   description = "Name of the Target Group"
 }
 
 variable "Target_type" {
-  type = string
+  type        = string
   description = "Which Load Balancer, This instance, ALB"
 }
 
 variable "Target_port" {
-  type = number
+  type        = number
   description = "Port 80 == HTTP"
 }
 
 variable "Target_Protocol" {
-  type = string
+  type        = string
   description = "Tranmission Control Protocol"
 }
 
@@ -116,7 +116,7 @@ variable "Target_Protocol" {
 #Route53 Records
 
 variable "subdomain" {
-  type = string
+  type        = string
   description = ".."
 }
 

@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "caravan" {
-  name = "cluster"
+  name = var.name
 }
 
 resource "aws_ecs_task_definition" "TK" {
@@ -10,6 +10,12 @@ resource "aws_ecs_task_definition" "TK" {
   requires_compatibilities = var.require_compatibilities
   execution_role_arn = var.execution_role
   task_role_arn = var.task-role-arn
+
+  runtime_platform {
+    cpu_architecture = "ARM64"
+    operating_system_family = "LINUX"
+  }
+  
   container_definitions = jsonencode([
     {
       name = var.name
@@ -24,14 +30,16 @@ resource "aws_ecs_task_definition" "TK" {
 
       ],
       "logConfiguration": {
-        logDriver: "awslogs",
-        "options": {
-        "awslogs-group": var.cloudwatch
-        "awslogs-stream-prefix": "ecs",
-        "awslogs-region": "eu-west-2"
+        logDriver = "awslogs",
+        "options" = {
+        "awslogs-group" = var.cloudwatch
+        "awslogs-stream-prefix" = "ecs",
+        "awslogs-region" = "eu-west-2"
         }
       }
     }
+
+  
     
   ])
 
@@ -48,7 +56,7 @@ resource "aws_ecs_service" "ecs-service" {
     load_balancer {
       target_group_arn = var.alb-target-group
       container_name = "Cluster"
-      container_port = "5002"
+      container_port = 5002
     }
 
     network_configuration {

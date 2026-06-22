@@ -1,51 +1,51 @@
 variable "name" {
-  type = string
+  type        = string
   description = "name of the cluster"
 }
 
 variable "family" {
-  type = string
+  type        = string
   description = "value"
 }
 
 variable "network_mode" {
-  type = string
+  type        = string
   description = "aws-vpc"
 }
 
 variable "require_compatibilities" {
-  type = list(string)
+  type        = list(string)
   description = "Set Launch for Fargate Serverless"
 }
 
 variable "cpu" {
-  type = string
+  type        = string
   description = "cpu cores"
 
 }
 
 variable "memory" {
-  type = string
+  type        = string
   description = "How much RAM is being used"
 }
 
 variable "execution_role" {
-  type = string
+  type        = string
   description = "Specifically for IAM ECS Roles"
 }
 
 variable "image" {
-  type = string
+  type        = string
   description = "Docekr Image"
-  
+
 }
 
-variable "task-role-arn" {
-  type = string
+variable "task_role_arn" {
+  type        = string
   description = "Task role arn"
 }
 
-variable "alb-target-group" {
+variable "alb_target_group" {
   type = string
 }
 

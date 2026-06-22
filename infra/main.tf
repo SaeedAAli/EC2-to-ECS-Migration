@@ -22,8 +22,8 @@ module "ECS" {
   family                  = var.family
   network_mode            = var.network_mode
   image                   = var.image
-  task-role-arn           = module.iam.ecs_task_execution_role_arn
-  alb-target-group        = module.ALB.target_group_arn
+  task_role_arn           = module.iam.ecs_task_execution_role_arn
+  alb_target_group        = module.ALB.target_group_arn
   IAM                     = module.iam.ecs_task_execution_role_arn
   subnets_ecs             = [module.vpc.PrivateSubnet1, module.vpc.PrivateSubnet2]
   ecs_sg                  = module.security_group.ECS_TASKS

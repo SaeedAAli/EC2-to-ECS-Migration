@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Build Docker Image and Deploying it to ECR & Scan with Trivy
 on:
   push:
     branches: [ "main" ]
@@ -17,7 +17,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6.2.0
         with:
-          role-to-assume: $${secrets.IAM_SECRET}
+          role-to-assume: $${secrets.IAM_OIDC}
           aws-region: eu-west-2
           audience: sts.amazonaws.com
 

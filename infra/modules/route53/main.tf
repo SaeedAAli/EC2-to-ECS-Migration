@@ -21,7 +21,7 @@ resource "aws_route53_record" "ec2toECS" {
 resource "aws_route53_health_check" "HTTP" {
   request_interval = "30"
   type = "HTTP"
-  resource_path = "/"
+  resource_path = "/ec2-ecs/health"
   failure_threshold = "3"
   fqdn = var.subdomain
 }
@@ -30,7 +30,7 @@ resource "aws_route53_health_check" "HTTP" {
 resource "aws_route53_health_check" "HTTPS" {
   request_interval = "30"
   type = "HTTPS"
-  resource_path = "/"
+  resource_path = "/ec2-ecs/health"
   failure_threshold = "3"
   fqdn = var.subdomain
 }

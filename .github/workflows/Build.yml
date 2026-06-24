@@ -37,19 +37,19 @@ jobs:
           context: .
           platforms: linux/arm64
           load: true
-          tags: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile ${{ github.sha }}
+          tags: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:${{ github.sha }}
 
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          image-ref: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile ${{ github.sha }}
+          image-ref: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:${{ github.sha }}
           format: 'table'
           exit-code: '1'
           severity: 'CRITICAL'
  
 
       - name: Pushing Docker image to ECR
-        run: docker push ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile ${{ github.sha }}
+        run: docker push ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:${{ github.sha }}
 
 
     

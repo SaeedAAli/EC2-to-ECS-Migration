@@ -26,6 +26,9 @@ jobs:
         id: ecr-login
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: AWS ECR create repository
+        run: aws ecr create-repository --repository-name "ec2toecsdckfile" --region "eu-west-2" --image-tag-mutability "MUTABLE"
+
 
       - name: Set Up QEMU - From X86 TO ARM64
         uses: docker/setup-qemu-action@v4
@@ -36,7 +39,6 @@ jobs:
         with:
           context: .
           platforms: linux/arm64
-          load: true
           tags: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:${{ github.sha }}
 
       - name: Scan image with Trivy

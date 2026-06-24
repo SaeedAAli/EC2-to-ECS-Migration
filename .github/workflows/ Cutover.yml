@@ -1,0 +1,9 @@
+name: Deploying EC2-Legacy App
+on:
+    [push]
+
+
+jobs:
+    steps:
+        runs-on: ubuntu-latest
+        

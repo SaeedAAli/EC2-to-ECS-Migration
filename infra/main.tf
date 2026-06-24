@@ -68,9 +68,7 @@ module "acm" {
 }
 
 
-module "ecr" {
-  source = "./modules/ecr"
-}
+
 
 
 module "cloudwatch" {

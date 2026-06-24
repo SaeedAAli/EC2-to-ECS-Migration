@@ -1,7 +1,7 @@
 name: Build Docker Image and Deploying it to ECR & Scan with Trivy
 on:
-  push:
-    branches: [ "main" ]
+
+  [workflow_dispatch]
 
 permissions:
   id-token: write

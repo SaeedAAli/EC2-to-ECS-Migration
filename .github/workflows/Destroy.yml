@@ -25,6 +25,11 @@ jobs:
             - name: terraform checkout
               uses: hashicorp/setup-terraform@v4
 
+            - name: terraform init
+              working-directory: ./infra
+              run: terraform init
+              
+
             - name: Terraform Destroy Infastructure
               working-directory: ./infra
               run: terraform destroy -auto-approve

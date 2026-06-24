@@ -49,11 +49,11 @@ jobs:
              - name: trigger ecs task deployment as requested on the assignment
                run: |
                  aws --version
-                 aws ecs update-service
-                 --cluster caravan \
-                 --service ecs-service \
-                 --force-new-deployment \
-                 --region eu-west-2
+                 aws ecs update-service \
+                   --cluster caravan \
+                   --service ecs-service \
+                   --force-new-deployment \
+                   --region eu-west-2
 
 
 

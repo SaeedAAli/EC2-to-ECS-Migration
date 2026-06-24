@@ -27,30 +27,29 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
 
+      - name: Set Up QEMU - From X86 TO ARM64
+        uses: docker/setup-qemu-action@v4
+
+
       - name: Build Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/arm64
           load: true
-          tags: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:${{ github.sha }}
+          tags: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:latest${{ github.sha }}
 
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          image-ref: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:${{ github.sha }}
+          image-ref: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:latest ${{ github.sha }}
           format: 'table'
           exit-code: '1'
           severity: 'CRITICAL'
  
 
       - name: Pushing Docker image to ECR
-        id: ecr
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:${{ github.sha }}
+        run: docker push ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:latest ${{ github.sha }}
 
 
     

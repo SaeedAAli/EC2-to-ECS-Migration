@@ -1,0 +1,36 @@
+
+name: Tearing up the Infrastructure
+on:
+     [workflow_dispatch]
+        
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment: Tear Infastructure
+        steps:
+            - name: Virtual Runner
+              uses: actions/checkout@v4
+
+            - name: OpenID Connect
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                    aws-region: eu-west-2
+                    role-to-assume: ${{ secrets.IAM_OIDC }}
+                    audience: sts.amazonaws.com
+
+            - name: terraform checkout
+              uses: hashicorp/setup-terraform@v4
+
+            - name: Terraform Destroy Infastructure
+              working-directory: ./infra
+              run: terraform destroy -auto-approve
+
+
+
+
+
+

@@ -19,8 +19,7 @@ COPY --from=build /usr/local/lib/python3.12/site-packages /usr/local/lib/python3
 COPY --from=build /usr/local/bin/gunicorn /usr/local/bin/gunicorn
 
 COPY ec2-legacy-app/app .
-
-
+ 
 
 RUN  adduser -D appuser
 

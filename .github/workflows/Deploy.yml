@@ -19,7 +19,7 @@ jobs:
                uses: aws-actions/configure-aws-credentials@v4
                with:
                     aws-region: eu-west-2
-                    role-to-assume: arn:aws:iam::923673751050:role/OIDC
+                    role-to-assume: ${{ secrets.IAM_OIDC }}
                     audience: sts.amazonaws.com
         
             
@@ -45,6 +45,15 @@ jobs:
              - name: terraform apply
                working-directory: ./infra
                run: terraform apply -auto-approve
+
+             - name: trigger ecs task deployment as requested on the assignment
+               run: |
+                 aws --version
+                 aws ecs update-service
+                 --cluster caravan \
+                 --service ecs-service \
+                 --force-new-deployment \
+                 --region eu-west-2
 
 
 

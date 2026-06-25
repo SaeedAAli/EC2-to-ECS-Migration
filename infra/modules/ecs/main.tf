@@ -98,4 +98,9 @@ resource "aws_appautoscaling_policy" "ecs_policy" {
 }
 
 
+resource "aws_cloudwatch_log_group" "ecs" {
+  name = var.cloudwatch
+
+} 
+
 

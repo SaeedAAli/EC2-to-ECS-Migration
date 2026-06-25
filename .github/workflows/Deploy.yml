@@ -50,7 +50,7 @@ jobs:
                run: |
                  aws --version
                  aws ecs update-service \
-                   --cluster caravan \
+                   --cluster Cluster \
                    --service ecs-service \
                    --force-new-deployment \
                    --region eu-west-2

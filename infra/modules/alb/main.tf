@@ -48,3 +48,34 @@ resource "aws_lb_listener" "HTTPS" {
 }
 
 
+resource "aws_cloudwatch_metric_alarm" "alb_4xx" {
+  alarm_name = "terraform-4xx"
+  comparison_operator = "GreaterThanThreshold"
+  namespace = "AWS/ApplicationELB"
+  dimensions = {
+    LoadBalancer = aws_lb.application_load_balancer.arn_suffix
+  }
+  period = 120
+  statistic = "Sum"
+  metric_name = "HTTPCode_ELB_4XX_Count"
+  threshold = 80
+  evaluation_periods = 2
+
+}
+
+
+
+resource "aws_cloudwatch_metric_alarm" "alb_5xx" {
+  alarm_name = "terraform-5xx"
+  comparison_operator = "GreaterThanThreshold"
+  namespace = "AWS/ApplicationELB"
+  dimensions = {
+    LoadBalancer = aws_lb.application_load_balancer.arn_suffix
+  }
+  period = 60
+  statistic = "Sum"
+  metric_name = "HTTPCode_ELB_5XX_Count"
+  threshold = 20
+  evaluation_periods = 2
+
+}

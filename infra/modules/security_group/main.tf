@@ -43,3 +43,4 @@ resource "aws_security_group" "ECS_TSKS" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+

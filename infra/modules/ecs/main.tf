@@ -103,4 +103,10 @@ resource "aws_cloudwatch_log_group" "ecs" {
 
 } 
 
-
+resource "aws_cloudwatch_metric_alarm" "CPU" {
+  alarm_name = "HighCPUusage"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  metric_name = "CPUUtilization"
+  namespace = "AWS/ECS"
+  
+}

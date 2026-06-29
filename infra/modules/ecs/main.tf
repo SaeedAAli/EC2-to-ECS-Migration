@@ -101,12 +101,50 @@ resource "aws_appautoscaling_policy" "ecs_policy" {
 resource "aws_cloudwatch_log_group" "ecs" {
   name = var.cloudwatch
 
-} 
+}
 
 resource "aws_cloudwatch_metric_alarm" "CPU" {
-  alarm_name = "HighCPUusage"
+  alarm_name          = "HighCPUusage"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  metric_name = "CPUUtilization"
-  namespace = "AWS/ECS"
-  
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/ECS"
+  statistic           = "Average"
+  threshold           = 80
+  evaluation_periods  = 2
+  period              = 120
+  dimensions = {
+    cluster     = aws_ecs_cluster.caravan.name
+    ecs-service = aws_ecs_service.ecs_service.name
+  }
+
+  tags = {
+    Name = "Measure High CPU Usage for Observability"
+  }
+
+}
+
+
+resource "aws_cloudwatch_event_rule" "filter" {
+  name        = "ecs_deployment_failed"
+  description = "Filters when the ECS deployment fails"
+
+  event_pattern = jsonencode({
+    "source" : ["aws.ecs"]
+    "detail-type" : ["ecs services"]
+    detail = {
+      eventName = ["SERVICE_DEPLOYMENT_FAILED"]
+    }
+    }
+  )
+}
+
+resource "aws_cloudwatch_event_target" "ecs_target" {
+  rule = aws_cloudwatch_event_rule.filter.arn
+  target_id = "ecs-target"
+  arn = aws_sns_topic.name.arn
+}
+
+
+resource "aws_sns_topic" "name" {
+  name = "ecs-deployment-alerts"
 }

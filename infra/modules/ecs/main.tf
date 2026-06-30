@@ -130,21 +130,39 @@ resource "aws_cloudwatch_event_rule" "filter" {
 
   event_pattern = jsonencode({
     "source" : ["aws.ecs"]
-    "detail-type" : ["ecs services"]
+    "detail-type" : ["ECS Service Action"]
     detail = {
       eventName = ["SERVICE_DEPLOYMENT_FAILED"]
+  
     }
-    }
+  }
   )
+  
 }
 
 resource "aws_cloudwatch_event_target" "ecs_target" {
   rule = aws_cloudwatch_event_rule.filter.arn
   target_id = "ecs-target"
-  arn = aws_sns_topic.name.arn
+  arn = aws_cloudwatch_log_group.ecs_group
 }
 
 
-resource "aws_sns_topic" "name" {
-  name = "ecs-deployment-alerts"
+
+
+resource "aws_cloudwatch_log_metric_filter" "name" {
+  log_group_name = aws_cloudwatch_log_group.ecs_group
+  name = "failed_ecs_filter"
+  pattern = ""
+  metric_transformation {
+    name = "FailedDeployment"
+    namespace = ""
+    value = 1
+  }
+}
+
+
+
+
+resource "aws_cloudwatch_log_group" "ecs_group" {
+  
 }

@@ -143,19 +143,19 @@ resource "aws_cloudwatch_event_rule" "filter" {
 resource "aws_cloudwatch_event_target" "ecs_target" {
   rule = aws_cloudwatch_event_rule.filter.arn
   target_id = "ecs-target"
-  arn = aws_cloudwatch_log_group.ecs_group
+  arn = aws_cloudwatch_log_group.ecs_group.arn
 }
 
 
 
 
 resource "aws_cloudwatch_log_metric_filter" "name" {
-  log_group_name = aws_cloudwatch_log_group.ecs_group
+  log_group_name = aws_cloudwatch_log_group.ecs_group.name
   name = "failed_ecs_filter"
-  pattern = ""
+  pattern = "SERVICE_DEPLOYMENT_FAILED"
   metric_transformation {
     name = "FailedDeployment"
-    namespace = ""
+    namespace = "ECS/Deployment"
     value = 1
   }
 }
@@ -164,5 +164,18 @@ resource "aws_cloudwatch_log_metric_filter" "name" {
 
 
 resource "aws_cloudwatch_log_group" "ecs_group" {
-  
+  name = "LogECS_Deployment"
+}
+
+
+
+resource "aws_cloudwatch_metric_alarm" "ECS_ALARM" {
+  alarm_name = "Failed_Deployment"
+  threshold = 0
+  evaluation_periods = 1
+  period = 60
+  statistic = "Sum"
+  namespace = "ECS/Deployment"
+  comparison_operator = "GreaterThanThreshold"
+  metric_name = "FailedDeployment"
 }

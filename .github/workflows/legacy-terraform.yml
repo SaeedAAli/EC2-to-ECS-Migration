@@ -1,0 +1,52 @@
+name: Legacy Terraform
+on: [workflow_dispatch]
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: actions checkout
+              uses: actions/checkout@v4
+
+            - name: OpenId Connect
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  aws-region: eu-west-1
+                  role-to-assume: ${{ secrets.IAM_OIDC }}
+                  audience: sts.amazonaws.com
+
+            - name: Terraform Actions
+              uses: hashicorp/setup-terraform@v4
+
+            - name: Initialize Terraform /init
+              working-directory: ./ec2-legacy-app/terraform
+              run:
+                    terraform init
+
+
+            - name: Terraform fmt
+              working-directory: ./ec2-legacy-app/terraform
+              run:
+                    terraform fmt
+
+            - name: Terraform validate
+              working-directory: ./ec2-legacy-app/terraform
+              run:
+                    terraform validate
+            
+            - name: Terraform Apply
+              working-directory: ./ec2-legacy-app/terraform
+              run:
+                    terraform apply -auto-approve
+                
+                    
+            - name: terraform Output
+              working-directory: ./ec2-legacy-app/terraform
+              run: 
+                    terraform output 
+            
+            
+            
+                    
+
+        

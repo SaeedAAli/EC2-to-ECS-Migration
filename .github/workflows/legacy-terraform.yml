@@ -8,12 +8,12 @@ jobs:
             - name: actions checkout
               uses: actions/checkout@v4
 
-            - name: OpenId Connect
+            - name: OpenID Connect
               uses: aws-actions/configure-aws-credentials@v4
               with:
-                  aws-region: eu-west-1
-                  role-to-assume: ${{ secrets.IAM_OIDC }}
-                  audience: sts.amazonaws.com
+                    aws-region: eu-west-2
+                    role-to-assume: ${{ secrets.IAM_OIDC }}
+                    audience: sts.amazonaws.com
 
             - name: Terraform Actions
               uses: hashicorp/setup-terraform@v4
@@ -39,7 +39,7 @@ jobs:
               run:
                     terraform apply -auto-approve
                 
-                    
+
             - name: terraform Output
               working-directory: ./ec2-legacy-app/terraform
               run: 

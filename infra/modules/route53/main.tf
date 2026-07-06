@@ -35,4 +35,11 @@ resource "aws_route53_health_check" "HTTPS" {
   fqdn = var.subdomain
 }
 
+resource "cloudflare_dns_record" "name" {
+  name = var.CloudFlare_name
+  type = var.type
+  ttl = var.TimetoLive
+  zone_id = var.zone
+  for_each = toset()
 
+}

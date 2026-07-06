@@ -4,8 +4,8 @@ terraform {
       source  = "hashicorp/aws"
       version = "6.52.0"
     }
-    cloudfare = {
-      source = "cloudfare/cloudfare"
+    cloudflare = {
+      source = "cloudflare/cloudflare"
       version = "~> 5"
 
     }
@@ -14,3 +14,4 @@ terraform {
 provider "aws" {
   region = "eu-west-2"
 }
+

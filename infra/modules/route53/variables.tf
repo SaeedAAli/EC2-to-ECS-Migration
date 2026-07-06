@@ -13,3 +13,21 @@ variable "dns_name" {
   description = "dns name of load balancer"
 }
 
+# -------------------------------------
+#Cloudflare DNS record
+
+variable "CloudFlare_name" {
+  type = string
+}
+
+variable "TimetoLive" {
+  type = number
+}
+
+variable "type" {
+  type = string
+}
+
+variable "zone" {
+  type = string
+}

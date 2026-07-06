@@ -34,3 +34,9 @@ Target_type       = "ip"
 # ---
 #Route53
 subdomain = "ec2toecsmigration.saeedaali.uk"
+
+# -- Cloudflare
+cloudflare_name = "ec2toecsmigration.saeedaali.uk"
+type = "NS"
+ttl = 3600
+zone_id = "21ce3d9268eef1589ab131eeee25b103"

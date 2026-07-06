@@ -58,10 +58,7 @@ module "Route53" {
   dns_name    = module.ALB.dns_name
   alb_zone_id = module.ALB.zone_id
   subdomain   = var.subdomain
-  CloudFlare_name = var.cloudflare_name
-  type = var.type
-  TimetoLive = var.ttl
-  zone = var.zone_id
+  zone        = var.zone_id
   
 }
 

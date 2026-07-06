@@ -36,10 +36,11 @@ resource "aws_route53_health_check" "HTTPS" {
 }
 
 resource "cloudflare_dns_record" "name" {
-  name = var.CloudFlare_name
-  type = var.type
-  ttl = var.TimetoLive
+  name = var.subdomain
+  type = "NS"
+  ttl = 3600
   zone_id = var.zone
-  for_each = toset()
+  content = each.key
+  for_each = toset(aws_route53_zone.subdomain_zone.name_servers)
 
 }

@@ -30,6 +30,17 @@ jobs:
                working-directory: ./infra
                run:  terraform init
 
+
+             - name: Initialize S3 bucket bootstrap
+               working-directory: ./bootstrap
+               run: terraform init
+
+             - name: plan & apply s3 bootstrap
+               working-directory: ./bootstrap
+               run: terraform plan
+                    terraform apply
+                     
+
              - name: Format terraform
                working-directory: ./infra
                run: terraform fmt -recursive -diff

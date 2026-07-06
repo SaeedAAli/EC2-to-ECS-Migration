@@ -124,18 +124,6 @@ variable "subdomain" {
 
 # --------
 # Cloudflare DNS
-variable "cloudflare_name" {
-  type = string
-}
-
-variable "type" {
-  type = string
-}
-
-variable "ttl" {
-  type = number
-}
-
 variable "zone_id" {
   type = string
 }

@@ -24,7 +24,7 @@ jobs:
         
             
              - name: Checkout Terraform
-               uses: hashicorp/setup-terraform@v3
+               uses: hashicorp/setup-terraform@v4
 
              - name: Initalize backend terraform
                working-directory: ./infra

@@ -18,3 +18,6 @@ This project simulates what real cloud migration would look like in a production
 
 
 ## Explanation of ECS Architecture Diagram
+
+- Users Sends traffic through Cloudflare Delegaton and into Route53
+- Traffic goes Dire

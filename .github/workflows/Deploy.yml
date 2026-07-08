@@ -16,20 +16,15 @@ jobs:
                uses: actions/checkout@v4
         
              - name: OpenID Connect
-               uses: aws-actions/configure-aws-credentials@v4
+               uses: aws-actions/configure-aws-credentials@v6.2.1
                with:
                     aws-region: eu-west-2
                     role-to-assume: ${{ secrets.IAM_OIDC }}
                     audience: sts.amazonaws.com
-        
+
             
              - name: Checkout Terraform
                uses: hashicorp/setup-terraform@v4
-
-             - name: Initalize backend terraform
-               working-directory: ./infra
-               run:  terraform init
-
 
              - name: Initialize S3 bucket bootstrap
                working-directory: ./bootstrap
@@ -37,8 +32,15 @@ jobs:
 
              - name: plan & apply s3 bootstrap
                working-directory: ./bootstrap
-               run: terraform plan
-                    terraform apply
+               run: |
+                    terraform plan
+                    terraform apply -auto-approve
+
+             - name: Initalize backend terraform
+               working-directory: ./infra
+               run:  terraform init
+               env:
+                  CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
                      
 
              - name: Format terraform
@@ -48,14 +50,21 @@ jobs:
              - name: terraform validation
                working-directory: ./infra
                run: terraform validate
+               env:
+                  CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
+               
             
              - name: terraform plan
                working-directory: ./infra
                run: terraform plan
+               env:
+                  CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
 
              - name: terraform apply
                working-directory: ./infra
                run: terraform apply -auto-approve
+               env:
+                  CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
 
              - name: trigger ecs task deployment as requested on the assignment
                run: |
@@ -66,7 +75,8 @@ jobs:
                    --force-new-deployment \
                    --region eu-west-2
 
-
+          
+               
 
 
 

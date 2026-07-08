@@ -4,17 +4,33 @@ resource "aws_route53_zone" "subdomain_zone" {
 }
 
 
-resource "aws_route53_record" "ec2toECS" {
-  name = var.subdomain
+resource "aws_route53_record" "ecs" {
   zone_id = aws_route53_zone.subdomain_zone.zone_id
-  type = "A"
+  name    = var.subdomain
+  type    = "A"
+  set_identifier = "ecs"
+  weighted_routing_policy {
+    weight = var.ecs_weight
+  }
   alias {
-    name = var.dns_name 
-    zone_id = var.alb_zone_id
+    name                   = var.dns_name
+    zone_id                = var.alb_zone_id
     evaluate_target_health = true
   }
+}
 
- }
+resource "aws_route53_record" "ec2" {
+  count   = var.ec2_eip != "" ? 1 : 0
+  zone_id = aws_route53_zone.subdomain_zone.zone_id
+  name    = var.subdomain
+  type    = "A"
+  set_identifier = "ec2"
+  weighted_routing_policy {
+    weight = var.ec2_weight
+  }
+  records = [var.ec2_eip]
+  ttl     = var.ttl
+}
 
 
 

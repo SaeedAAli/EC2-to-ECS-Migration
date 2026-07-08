@@ -59,7 +59,10 @@ module "Route53" {
   alb_zone_id = module.ALB.zone_id
   subdomain   = var.subdomain
   zone        = var.zone_id
-  
+  ec2_eip     = local.ec2_eip
+  ecs_weight  = var.ecs_weight
+  ec2_weight  = var.ec2_weight
+  ttl         = var.ttl
 }
 
 module "acm" {

@@ -3,7 +3,7 @@ output "route53_zone" {
 }
 
 output "subdomain" {
-  value = aws_route53_record.ec2toECS.name
+  value = aws_route53_record.ecs.name
 }
 
 output "HTTP" {

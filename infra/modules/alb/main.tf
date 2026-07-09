@@ -85,6 +85,7 @@ resource "aws_cloudwatch_metric_alarm" "alb_5xx" {
 
 
 resource "aws_cloudwatch_metric_alarm" "CPU" {
+  metric_name = "CPU"
   alarm_name = "High5XXAlarm"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   namespace = "AWS/ApplicationELB"

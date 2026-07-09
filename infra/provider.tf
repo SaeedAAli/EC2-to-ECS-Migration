@@ -5,7 +5,7 @@ terraform {
       version = "6.52.0"
     }
     cloudflare = {
-      source = "cloudflare/cloudflare"
+      source  = "cloudflare/cloudflare"
       version = "~> 5"
 
     }
@@ -17,5 +17,5 @@ provider "aws" {
 
 
 provider "cloudflare" {
-  
+
 }

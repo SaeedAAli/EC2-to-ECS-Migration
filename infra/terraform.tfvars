@@ -38,10 +38,9 @@ subdomain = "ec2toecsmigration.saeedaali.uk"
 # -- Cloudflare
 zone_id = "21ce3d9268eef1589ab131eeee25b103"
 
-# -- Weighted Routing (Cutover)
-# Set ec2_eip to the legacy EC2's Elastic IP when ready for weighted cutover
-# Adjust weights to gradually shift traffic: 10/90 -> 50/50 -> 100/0
+# ------
+# Cutover Weighted Routing
 ec2_eip    = ""
-ecs_weight = 100
-ec2_weight = 0
+ecs_weight = 0
+ec2_weight = 100
 ttl        = 60

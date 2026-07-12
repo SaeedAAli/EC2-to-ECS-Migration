@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     bucket = "ec2toecsmigration"
     key = ".terraform/terraform.tfstate"
-    region = "true"
+    region = "eu-west-2"
     encrypt = true
   }
 }

@@ -6,11 +6,12 @@ permissions:
     id-token: write
     contents: read
 
-    
 jobs:
     deploy:
         runs-on: ubuntu-latest
         environment: Deployment
+        env:
+            CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
         steps:
              - name: Checkout
                uses: actions/checkout@v4
@@ -39,8 +40,7 @@ jobs:
              - name: Initalize backend terraform
                working-directory: ./infra
                run:  terraform init
-               env:
-                  CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
+    
                      
 
              - name: Format terraform
@@ -50,21 +50,16 @@ jobs:
              - name: terraform validation
                working-directory: ./infra
                run: terraform validate
-               env:
-                  CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
-               
             
              - name: terraform plan
                working-directory: ./infra
                run: terraform plan
-               env:
-                  CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
+
 
              - name: terraform apply
                working-directory: ./infra
                run: terraform apply -auto-approve
-               env:
-                  CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
+
 
              - name: trigger ecs task deployment as requested on the assignment
                run: |

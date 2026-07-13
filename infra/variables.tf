@@ -78,7 +78,7 @@ variable "ALBname" {
 }
 
 variable "internal" {
-  type        = string
+  type        = bool
   description = "If false it will work"
 }
 

@@ -108,8 +108,8 @@ resource "aws_cloudwatch_metric_alarm" "CPU" {
   evaluation_periods  = 2
   period              = 120
   dimensions = {
-    cluster     = aws_ecs_cluster.caravan.name
-    ecs-service = aws_ecs_service.ecs_service.name
+    ClusterName     = aws_ecs_cluster.caravan.name
+    ServiceName = aws_ecs_service.ecs_service.name
   }
 
   tags = {

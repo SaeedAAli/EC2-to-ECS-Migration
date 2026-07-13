@@ -79,27 +79,3 @@ resource "aws_cloudwatch_metric_alarm" "alb_5xx" {
 
 }
 
-
-
-
-
-resource "aws_cloudwatch_metric_alarm" "CPU" {
-  metric_name = "CPU"
-  alarm_name = "High5XXAlarm"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  namespace = "AWS/ApplicationELB"
-  statistic = "Sum"
-  threshold = 60
-  evaluation_periods = 2
-  period = 120
-  dimensions = {
-    LoadBalancer = aws_lb.application_load_balancer.arn_suffix
-
-  }
-
-  tags = {
-    Name = "Measure High 5XX"
-  }
-
-}
-

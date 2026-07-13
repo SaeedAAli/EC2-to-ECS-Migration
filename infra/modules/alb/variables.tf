@@ -9,7 +9,7 @@ variable "load_balancer_type" {
 }
 
 variable "internal" {
-  type        = string
+  type        = bool
   description = "If true, LB will be internal defaults to false"
 }
 

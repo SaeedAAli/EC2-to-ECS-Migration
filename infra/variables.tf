@@ -133,24 +133,21 @@ variable "zone_id" {
 variable "ec2_eip" {
   type        = string
   description = "Elastic IP of the legacy EC2 instance for weighted routing"
-  default     = ""
 }
 
 variable "ecs_weight" {
   type        = number
   description = "Route53 weighted routing weight for ECS target (sum of both weights should equal 100)"
-  default     = 100
 }
 
 variable "ec2_weight" {
   type        = number
   description = "Route53 weighted routing weight for EC2 legacy instance"
-  default     = 0
 }
 
 variable "ttl" {
   type        = number
   description = "TTL for Route53 records (low = faster cutover propagation)"
-  default     = 60
+
 }
 

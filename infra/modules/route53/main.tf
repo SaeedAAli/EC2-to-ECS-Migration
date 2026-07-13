@@ -68,6 +68,6 @@ resource "cloudflare_dns_record" "name" {
   type = "NS"
   ttl = 3600
   zone_id = var.zone
-  content = aws_route53_zone.subdomain_zone[count.index]
+  content = aws_route53_zone.subdomain_zone.name_servers[count.index]
 
 }

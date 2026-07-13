@@ -1,8 +1,3 @@
-
-
-
-
-
 resource "aws_s3_bucket" "ec2toecs" {
   bucket = "ec2toecsmigration"
 }

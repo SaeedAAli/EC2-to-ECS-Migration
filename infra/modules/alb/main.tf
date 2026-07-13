@@ -36,7 +36,7 @@ resource "aws_lb_listener" "lb_listener" {
 
 resource "aws_lb_listener" "HTTPS" {
   load_balancer_arn = aws_lb.application_load_balancer.arn
-  certificate_arn   = var.certification
+  certificate_arn   = var.certification_validation_for_https
   default_action {
     target_group_arn = aws_lb_target_group.TG.arn
     type             = "forward"
@@ -44,7 +44,7 @@ resource "aws_lb_listener" "HTTPS" {
   port     = 443
   protocol = "HTTPS"
 
-  depends_on = [var.certification_validation_for_https]
+ 
 }
 
 
@@ -62,7 +62,6 @@ resource "aws_cloudwatch_metric_alarm" "alb_4xx" {
   evaluation_periods = 2
 
 }
-
 
 
 resource "aws_cloudwatch_metric_alarm" "alb_5xx" {

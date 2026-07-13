@@ -98,11 +98,6 @@ resource "aws_appautoscaling_policy" "ecs_policy" {
 }
 
 
-resource "aws_cloudwatch_log_group" "ecs" {
-  name = var.cloudwatch
-
-}
-
 resource "aws_cloudwatch_metric_alarm" "CPU" {
   alarm_name          = "HighCPUusage"
   comparison_operator = "GreaterThanOrEqualToThreshold"

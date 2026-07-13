@@ -46,6 +46,7 @@ module "ALB" {
   alb_sg                             = module.security_group.ALB_Security_group
   certification                      = module.acm.http_cert
   certification_validation_for_https = module.acm.certification_validation
+
 }
 
 module "iam" {

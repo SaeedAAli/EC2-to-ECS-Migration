@@ -104,6 +104,7 @@ resource "aws_nat_gateway" "NATGW_PB1" {
 
 resource "aws_eip" "eip" {
   domain = "vpc"
+
 }
 
 
@@ -111,6 +112,10 @@ resource "aws_eip" "eip" {
 resource "aws_nat_gateway" "NATGW_PB2" {
   subnet_id     = aws_subnet.Public_Subnet_2.id
   allocation_id = aws_eip.elastic_ip_2.id
+
+  tags = {
+    Name = "Nat Gateway 2"
+  }
 }
 
 

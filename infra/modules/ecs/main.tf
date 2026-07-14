@@ -136,7 +136,7 @@ resource "aws_cloudwatch_event_rule" "filter" {
 }
 
 resource "aws_cloudwatch_event_target" "ecs_target" {
-  rule = aws_cloudwatch_event_rule.filter.arn
+  rule = aws_cloudwatch_event_rule.filter.name
   target_id = "ecs-target"
   arn = aws_cloudwatch_log_group.ecs_group.arn
 }

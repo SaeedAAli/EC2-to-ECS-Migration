@@ -42,3 +42,70 @@ This project simulates what real cloud migration would look like in a production
 ## Full Migration Strategy
 
 The Full Migration Strategy is 
+
+
+
+
+## Project Structure
+
+```
+.
+├── Dockerfile
+├── README.md
+├── bootstrap
+│   ├── main.tf
+│   └── provider.tf
+├── ec2-legacy-app
+│   ├── ARCHITECTURE.md
+│   ├── QUICKSTART.md
+│   ├── README.md
+│   ├── app
+│   │   ├── app.py
+│   │   ├── requirements.txt
+│   │   └── wsgi.py
+│   ├── nginx
+│   │   └── default.conf
+│   ├── scripts
+│   │   ├── setup.sh
+│   │   ├── test-api.sh
+│   │   └── validate-setup.sh
+│   ├── systemd
+│   │   └── app.service
+│   ├── terraform
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   ├── terraform.tfstate
+│   │   ├── terraform.tfvars
+│   │   ├── terraform.tfvars.example
+│   │   └── variables.tf
+│   └── terraform.tfstate
+├── images
+│   ├── ec2.png
+│   └── ecs-architecture.png
+├── infra
+│   ├── backend.tf
+│   ├── data.tf
+│   ├── main.tf
+│   ├── modules
+│   │   ├── acm
+│   │   ├── alb
+│   │   ├── cloudwatch
+│   │   ├── ecs
+│   │   ├── iam
+│   │   ├── route53
+│   │   ├── security_group
+│   │   ├── vpc
+│   │   └── vpc-endpoints
+│   ├── outputs.tf
+│   ├── provider.tf
+│   ├── terraform.tfstate
+│   ├── terraform.tfstate.backup
+│   ├── terraform.tfvars
+│   └── variables.tf
+├── terraform.tfstate
+└── test
+    └── Dockerfile
+
+```
+
+

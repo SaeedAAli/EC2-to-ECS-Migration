@@ -7,6 +7,6 @@ output "domain_valid_options" {
 }
 
 output "certification_validation" {
-  value = aws_acm_certificate_validation.valid.id
+  value = aws_acm_certificate_validation.valid.certificate_arn
 }
 

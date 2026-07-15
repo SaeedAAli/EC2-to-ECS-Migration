@@ -41,7 +41,23 @@ This project simulates what real cloud migration would look like in a production
 
 ## Full Migration Strategy
 
-The Full Migration Strategy is 
+- The Full Migration Stratergy for this project is focused on doing weighted routing policy between EC2 and ECS Route53 Record 
+- 
+
+
+
+
+
+
+
+
+
+
+
+## CI/CD Explanation
+
+
+
 
 
 

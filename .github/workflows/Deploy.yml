@@ -1,79 +1,66 @@
 name: Deploying Infastructure to ECS
 on:
-     workflow_dispatch:
-    
+  workflow_dispatch:
+
 permissions:
-    id-token: write
-    contents: read
+  id-token: write
+  contents: read
 
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
-        environment: Deployment
-        env:
-            CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
-        steps:
-             - name: Checkout
-               uses: actions/checkout@v4
-        
-             - name: OpenID Connect
-               uses: aws-actions/configure-aws-credentials@v6.2.1
-               with:
-                    aws-region: eu-west-2
-                    role-to-assume: ${{ secrets.IAM_OIDC }}
-                    audience: sts.amazonaws.com
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Deployment
+    env:
+      CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFARE_API_KEY}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            
-             - name: Checkout Terraform
-               uses: hashicorp/setup-terraform@v4
+      - name: OpenID Connect
+        uses: aws-actions/configure-aws-credentials@v6.2.1
+        with:
+          aws-region: eu-west-2
+          role-to-assume: ${{ secrets.IAM_OIDC }}
+          audience: sts.amazonaws.com
 
-             - name: Initialize S3 bucket bootstrap
-               working-directory: ./bootstrap
-               run: terraform init
+      - name: Checkout Terraform
+        uses: hashicorp/setup-terraform@v4
 
-             - name: plan & apply s3 bootstrap
-               working-directory: ./bootstrap
-               run: |
-                    terraform plan
-                    terraform apply -auto-approve
+      - name: Initialize S3 bucket bootstrap
+        working-directory: ./bootstrap
+        run: terraform init
 
-             - name: Initalize backend terraform
-               working-directory: ./infra
-               run:  terraform init
-    
-                     
+      - name: plan & apply s3 bootstrap
+        working-directory: ./bootstrap
+        run: |
+          terraform plan
+          terraform apply -auto-approve
 
-             - name: Format terraform
-               working-directory: ./infra
-               run: terraform fmt -recursive -diff
+      - name: Initalize backend terraform
+        working-directory: ./infra
+        run: terraform init
 
-             - name: terraform validation
-               working-directory: ./infra
-               run: terraform validate
-            
-             - name: terraform plan
-               working-directory: ./infra
-               run: terraform plan
+      - name: Format terraform
+        working-directory: ./infra
+        run: terraform fmt -recursive -diff
 
+      - name: terraform validation
+        working-directory: ./infra
+        run: terraform validate
 
-             - name: terraform apply
-               working-directory: ./infra
-               run: terraform apply -auto-approve
+      - name: terraform plan
+        working-directory: ./infra
+        run: terraform plan
 
+      - name: terraform apply
+        working-directory: ./infra
+        run: terraform apply -auto-approve
 
-             - name: trigger ecs task deployment as requested on the assignment
-               run: |
-                 aws --version
-                 aws ecs update-service \
-                   --cluster Cluster \
-                   --service ecs-service \
-                   --force-new-deployment \
-                   --region eu-west-2
-
-          
-               
-
-
-
-                
-            
+      - name: trigger ecs task deployment as requested on the assignment
+        run: |
+          aws --version
+          aws ecs update-service \
+            --cluster Cluster \
+            --service ecs-service \
+            --force-new-deployment \
+            --region eu-west-2

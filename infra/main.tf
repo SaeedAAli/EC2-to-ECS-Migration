@@ -68,7 +68,7 @@ module "Route53" {
 
 module "acm" {
   source   = "./modules/acm"
-  dns_name = module.Route53.subdomain
+  dns_name = var.subdomain
   zone_id  = module.Route53.route53_zone
 
 }

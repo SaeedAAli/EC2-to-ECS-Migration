@@ -1,17 +1,12 @@
 name: Build Docker Image and Deploying it to ECR & Scan with Trivy
-on:
-
-  [workflow_dispatch]
+on: [workflow_dispatch]
 
 permissions:
   id-token: write
   contents: read
 
-
-
-
 jobs:
-  jobs_run_with_aws: 
+  jobs_run_with_aws:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -24,7 +19,6 @@ jobs:
           aws-region: eu-west-2
           audience: sts.amazonaws.com
 
-
       - name: Log Into ECR
         id: ecr-login
         uses: aws-actions/amazon-ecr-login@v2
@@ -32,10 +26,8 @@ jobs:
       - name: AWS ECR create repository
         run: aws ecr describe-repositories --repository-name "ec2toecsdckfile" --region "eu-west-2"  || aws ecr create-repository --repository-name "ec2toecsdckfile" --region "eu-west-2" --image-tag-mutability "MUTABLE"
 
-
       - name: Set Up QEMU - From X86 TO ARM64
         uses: docker/setup-qemu-action@v4
-
 
       - name: Build Docker image
         uses: docker/build-push-action@v6
@@ -44,26 +36,19 @@ jobs:
           platforms: linux/arm64
           load: true
           tags: |
-                ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:${{ github.sha }}
-                ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:latest
+            ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:${{ github.sha }}
+            ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:latest
 
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ steps.ecr-login.outputs.registry }}/ec2toecsdckfile:${{ github.sha }}
 
-          format: 'table'
-          exit-code: '1'
-          severity: 'CRITICAL'
+          format: "table"
+          exit-code: "1"
+          severity: "CRITICAL"
 
-      
       - name: Push Docker Image to ECR
         run: |
           docker push ${{steps.ecr-login.outputs.registry}}/ec2toecsdckfile:${{ github.sha }}
           docker push ${{steps.ecr-login.outputs.registry}}/ec2toecsdckfile:latest
-
- 
-
-
-    
- 

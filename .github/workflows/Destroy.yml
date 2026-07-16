@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dismantle-terraform
     env:
-      CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
+      CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_KEY}}
     steps:
       - name: Virtual Runner
         uses: actions/checkout@v4

@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: Deployment
     env:
-      CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFARE_API_KEY}}
+      CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_KEY}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,15 +26,16 @@ jobs:
       - name: Checkout Terraform
         uses: hashicorp/setup-terraform@v4
 
-      - name: Initialize S3 bucket bootstrap
-        working-directory: ./bootstrap
-        run: terraform init
-
-      - name: plan & apply s3 bootstrap
+      - name: Check if S3 Bucket Exists, If so, Perform Initalize, Plan and Apply to Bootstrap #Done to avoid s3 bucket already exist in when automating
         working-directory: ./bootstrap
         run: |
-          terraform plan
-          terraform apply -auto-approve
+          if aws s3api head-bucket --bucket "ec2toecsmigration" 2>dev/null; then
+          echo "S3 bucket exist -> Skip"
+          else
+              terraform init
+              terraform plan
+              terraform apply -auto-approve
+          fi
 
       - name: Initalize backend terraform
         working-directory: ./infra

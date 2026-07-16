@@ -42,8 +42,3 @@ output "s3_bucket_name" {
   description = "S3 bucket name for application files"
   value       = aws_s3_bucket.app.id
 }
-
-output "route53_record" {
-  description = "Route53 record (if configured)"
-  value       = var.domain_name != "" && var.route53_zone_id != "" ? aws_route53_record.app[0].fqdn : null
-}

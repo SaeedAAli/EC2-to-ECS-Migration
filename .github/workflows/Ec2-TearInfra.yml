@@ -38,5 +38,5 @@ jobs:
                   terraform plan
                 
             - name: Destroy legacy application
-              working-directory: ./"ec2-legacy-app"/terraform
+              working-directory: ./ec2-legacy-app/terraform
               run: terraform destroy -auto-approve

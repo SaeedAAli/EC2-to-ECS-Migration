@@ -1,0 +1,33 @@
+name: Tearing up EC2 Legacy App
+on: [workflow_dispatch]
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment: Legacy-Application
+        steps:
+            
+            - name: Actions Checkout
+              uses: actions/checkout@v4
+
+            - name: OpenID connect
+              uses: aws-actions/configure-aws-credentials@v6.2.1
+              with:
+                  aws-region: "eu-west-2"
+                  audience: sts.amazonaws.com
+                  role-to-assume: ${{secrets.IAM_OIDC}}
+
+            - name: Terraform Initalize
+              working-directory: ./bootstrap
+              run: terraform init
+
+            
+            - name: Terraform Plan and Validate
+              working-directory: ./bootstrap
+              run: |
+                  terraform validate
+                  terraform plan
+                
+            - name: Destroy legacy application
+              working-directory: ./bootstrap
+              run: terraform destroy -auto-approve

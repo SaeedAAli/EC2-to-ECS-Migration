@@ -27,16 +27,16 @@ jobs:
               uses: hashicorp/setup-terraform@v4
 
             - name: Terraform Initalize
-              working-directory: ./bootstrap
+              working-directory: ./"ec2-legacy-app"/terraform
               run: terraform init
 
             
             - name: Terraform Plan and Validate
-              working-directory: ./bootstrap
+              working-directory: ./"ec2-legacy-app"/terraform
               run: |
                   terraform validate
                   terraform plan
                 
             - name: Destroy legacy application
-              working-directory: ./bootstrap
+              working-directory: ./"ec2-legacy-app"/terraform
               run: terraform destroy -auto-approve

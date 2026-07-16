@@ -10,12 +10,12 @@ jobs:
             - name: Actions Checkout
               uses: actions/checkout@v4
 
-            - name: OpenID connect
+            - name: OpenID Connect
               uses: aws-actions/configure-aws-credentials@v6.2.1
               with:
-                  aws-region: "eu-west-2"
-                  audience: sts.amazonaws.com
-                  role-to-assume: ${{secrets.IAM_OIDC}}
+                aws-region: eu-west-2
+                role-to-assume: ${{ secrets.IAM_OIDC }}
+                audience: sts.amazonaws.com
 
             - name: Terraform Initalize
               working-directory: ./bootstrap

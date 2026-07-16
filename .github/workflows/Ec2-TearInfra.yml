@@ -23,6 +23,9 @@ jobs:
                 role-to-assume: ${{ secrets.IAM_OIDC }}
                 audience: sts.amazonaws.com
 
+            - name: Checkout Terraform Actions
+              uses: hashicorp/setup-terraform@v4
+
             - name: Terraform Initalize
               working-directory: ./bootstrap
               run: terraform init

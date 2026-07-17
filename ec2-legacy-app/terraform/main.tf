@@ -338,3 +338,15 @@ resource "aws_eip" "app" {
     Name = "${var.project_name}-eip"
   }
 }
+
+
+
+terraform {
+  backend "s3" {
+    region       = "eu-west-2"
+    bucket       = "ec2toecsmigration"
+    key          = "terraform.tfstate"
+    encrypt      = true
+    use_lockfile = true
+  }
+}

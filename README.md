@@ -41,23 +41,35 @@ This project simulates what real cloud migration would look like in a production
 
 ## Full Migration Strategy
 
-- The Full Migration Stratergy for this project is focused on doing weighted routing policy between EC2 and ECS Route53 Record 
-- 
+
+For the Full migration strategy, I use the AWS Native Weighted Routing as seen below to be able to shift between the amount of traffic that is directed between two applications, in this instance, I used EC2 and ECS
+
+```
+Formula of Weighted Policy
 
 
+Traffic (%) = Weight for a specific Record 
+              -----------------------------
+            Sum of all the Weights for all records
+```
 
 
+To function this effectively, and being able to control the amount of traffic between both applications, I've set the amount weight inside ./infra/terraform.tfvars, this is used to control the amount of traffic needed between two applications. 
 
 
+I've used a Terraform data resource block (./infra/data.tf) to fetch the EC2 Elastic IP from AWS by its legacy-api- tag, allowing the ECS Fargate infrastructure to point its EC2 weighted routing record at the legacy Elastic IP, storing the EIP as a local value which then be used as a record target in Route53.
 
-
-
-
+The reason why i chose weighted routing policy because it's most approachable cutover method compared to all the other approaches avaliable with it combined a low blast radius, only affecting a small to tiny portion of users having access to the site compared to all the other approaches where the blast raidus affects the entire user experience. Being able to control the amount of traffic between EC2 and ECS by adjusting their weights means having a rollback is easy to apply just by changing the weight while fixing the overall issue onto why the ECS is underperforming, failing with the use of CloudWatch and Eventbridge being used as a diagnostic tools, with Route53 health checks providing an additional automatic safety net throughout the process
 
 ## CI/CD Explanation
 
-
-
+```
+ 1) Build.yml
+ 2) Deploy.yml
+ 3) 
+ 4)
+ 5)
+```
 
 
 

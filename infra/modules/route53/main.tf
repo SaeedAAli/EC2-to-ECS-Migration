@@ -7,9 +7,6 @@ terraform {
 }
 
 
-
-
-
 resource "aws_route53_zone" "subdomain_zone" {
   name = var.subdomain
 }

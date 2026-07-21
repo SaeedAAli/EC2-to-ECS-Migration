@@ -63,14 +63,24 @@ The reason why i chose weighted routing policy because it's most approachable cu
 
 ## CI/CD Explanation
 
-```
- 1) Build.yml
- 2) Deploy.yml
- 3) 
- 4)
- 5)
-```
+When it comes to CI/CD Explanation, The workflows have been split into 5 seperate tasks so that errors are easier to isolate, debugging becomes much more eaiser by finding which workflows is failing.
 
+Each Worlfows has its unique attribute and how its published to AWS + Cloudflare
+
+
+ - **Build.yml**:  This workflow creates the Elastic Container Registry through AWS CLI, Build the DockerFile image, Using Trivy as a Security Scanner to avoid any issues and pushes the Image with the latest tag to Elastic Container Registry
+ - **Deploy.yml**:  Runs Terraform from `./infra` to deploy and update the ECS Fargate infrastructure in AWS.
+ - **Destroy.yml**:  Tears down the ECS Fargate Infrastructure, leaving no active AWS services running to cut down cost
+ - **Legacy-terraform.yml**:  Launches the EC2 Legacy application through `ec2-legacy-app/terraform` by creating a VPC, An EC2 Instance, Internet Gateway, NGINX Proxy with Flask Database
+ - **Ec2-Tearinfra.yml**:  Crumbles the EC2 Legacy Application once the ECS can handle all the traffic and the rollback plan isnt needed
+
+ For This Project, the **Preconditions used** for it CICD
+
+ - Cloudflare API Key embedded in environments, to tackle the solution of having to manually add Name Servers to Cloudflare Record manually, furthermore, when running the Deploy.yml workflow, it takes 
+ - AWS OpenID Connect;  authenticate short lived credentials rather than using static AWS access keys stored as Secrets
+ - Use a Security Scanner whether that would be Trivy, Gripe and More
+ - Have Environments Created when using workflows rather than having stored as a global repository secret.  Environment Secrets > Global repository secret for security improvment
+ - Manually deploy each workflow via Workflow Dispatch
 
 
 
@@ -133,6 +143,36 @@ The reason why i chose weighted routing policy because it's most approachable cu
 ├── terraform.tfstate
 └── test
     └── Dockerfile
+
+```
+
+## Deployments Step
+
+**Requirements** for deployment this project live
+
+- Amazon Web Serivces - use User account and not Root account
+- Terraform Installed
+- Dokcer Desktop
+- Cloudflare account owned with a domain
+- AWS CLI installed
+
+**Legacy Setup**
+
+
+``` bash
+git clone https://github.com/saeedaali/ec2-to-ecs-migration
+cd ec2-legacy-app/  #enter the cloned repository through linux command
+
+
+
+cd terraform        # change into its terraform folder
+
+terraform init    
+terraform validate 
+terraform fmt  
+terraform apply   # Provisions the infrastructure which creates the VPC, Internet Gateway, 
+
+
 
 ```
 

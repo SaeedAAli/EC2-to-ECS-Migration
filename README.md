@@ -4,7 +4,7 @@
 
 
 
-This project simulates what real cloud migration would look like in a production grade enviornmet. By taking a legacy EC2 application and migrating it to a modernised, containerised ECS Fargate launch type with established networking, Continious Intergration and Continious Deployment, and Observability. Furthermore by Implementing a Cutover plan to document the process between each switch 
+This project simulates what real cloud migration would look like in a production grade environment. By taking a legacy EC2 application and migrating it to a modernised, containerised ECS Fargate launch type with established networking, Continious Intergration and Continious Deployment, and Observability. Furthermore by Implementing a Cutover plan to document the process between each switch 
 
 ## Before EC2 Migration, Architecture Diagram
 
@@ -19,14 +19,14 @@ This project simulates what real cloud migration would look like in a production
 
 ## Explanation of ECS Architecture Diagram
 
-- Users Sends traffic through Cloudflare Delegaton and hands over Authoratative access to Route53 in order to look up for Name Servers
+- Users Sends traffic through Cloudflare Delegation and hands over Authoriatative access to Route53 in order to look up for Name Servers
 - Traffic goes through Route53 Directly into Internet Gateway; which allows VPC to have access to Public Internet
 - After Interent Gateway, traffic reaches the ALB, which sits in the public subnet. With Security Group attached to the application load balancer which acts as a firewall only allowing port 80 and port 443 traffic from anywhere. 
 - Inside the ALB, It contains Two Listeners which waits for HTTPS and HTTP Traffic while the Target Group distributes traffic tasks depending on which application, for this instance is the ECS with only Port 5002 Configured.
-- A seperate security group is attached to the ecs tasks, allowing traffic on port 5002 from ALB security group - making sure that there isn't any exposed access to the internet as it contains heavy senstive confidental information.
-- To be able to Pull Images and Continously log information into ECR & Cloudwatch, have private subnets have an outbound rule to public subnet which NAT Gateway, which is used if you want your private subnet to allow access to the internet without having inbound exposure. Since the we need to autonomously have it where ecs is receving the latest Docker image while also keeping in check for Logging Cloudwatch Metrics and viewing them in Dashboard.
+- A seperate security group is attached to the ecs tasks, allowing traffic on port 5002 from ALB security group - making sure that there isn't any exposed access to the internet as it contains heavy sensitive confidenti al information.
+- To be able to Pull Images and Continously log information into ECR & Cloudwatch, private subnets route outbound traffic through a NAT Gateway sitting in the public subnet, this allows resources in the private subnet to reach the internet without being exposed to inbound traffic themselves.Since the we need to autonomously have it where ecs is receving the latest Docker image while also keeping in check for Logging Cloudwatch Metrics and viewing them in Dashboard.
 
-- Developer run mutlitple workflows through GitHub Actions. within each workflow, it builds the docker image and provisions the infrastructure via Terraform, alongside Remote terraform.tfstate stored in S3 bucket -> enabling collaboration between other collaborates and peers.
+- Developer run mutlitple workflows through GitHub Actions. within each workflow, it builds the docker image and provisions the infrastructure via Terraform, alongside Remote terraform.tfstate stored in S3 bucket -> enabling collaboration between other collaborators and peers.
 
 - Monitor Failed ECS Deployments Via AWS EventBridge -> Cloudwatch Logs + Alarms
 
@@ -63,7 +63,7 @@ The reason why i chose weighted routing policy because it's most approachable cu
 
 ## CI/CD Explanation
 
-When it comes to CI/CD Explanation, The workflows have been split into 5 seperate tasks so that errors are easier to isolate, debugging becomes much more eaiser by finding which workflows is failing.
+When it comes to CI/CD Explanation, The workflows have been split into 5 seperate tasks so that errors are easier to isolate, debugging becomes much more easier by finding which workflows is failing.
 
 Each Worlfows has its unique attribute and how its published to AWS + Cloudflare
 
@@ -79,7 +79,7 @@ Each Worlfows has its unique attribute and how its published to AWS + Cloudflare
  - Cloudflare API Key embedded in environments, to tackle the solution of having to manually add Name Servers to Cloudflare Record manually, furthermore, when running the Deploy.yml workflow, it takes 
  - AWS OpenID Connect;  authenticate short lived credentials rather than using static AWS access keys stored as Secrets
  - Use a Security Scanner whether that would be Trivy, Gripe and More
- - Have Environments Created when using workflows rather than having stored as a global repository secret.  Environment Secrets > Global repository secret for security improvment
+ - Have Environments Created when using workflows rather than having stored as a global repository secret.  Environment Secrets > Global repository secret for security improvement
  - Manually deploy each workflow via Workflow Dispatch
 
 
@@ -150,7 +150,7 @@ Each Worlfows has its unique attribute and how its published to AWS + Cloudflare
 
 **Requirements** for deployment this project live
 
-- Amazon Web Serivces - use User account and not Root account
+- Amazon Web Services - use User account and not Root account + Amazon 
 - Terraform Installed
 - Dokcer Desktop
 - Cloudflare account owned with a domain
@@ -170,7 +170,52 @@ cd terraform        # change into its terraform folder
 terraform init    
 terraform validate 
 terraform fmt  
-terraform apply   # Provisions the infrastructure which creates the VPC, Internet Gateway, 
+terraform apply   # Provisions the infrastructure which creates the VPC, Internet Gateway, NGINX Proxy, and a Flask Database
+
+For Github Actions
+
+# For Automation through GitHub Actions Do this in order 
+
+- Legacy-terraform.yml: Deploys the Legacy EC2 Application Live
+
+- After deploying the legacy and making sure that there isnt a rollback plan needed for, since the ecs can handle all traffic, tear the infrastructure by running
+    - Ec2-TearInfra.yml to reduce cost usage.
+
+
+```
+
+**ECS Fargate Deployment Step**
+
+
+``` bash
+
+# If you have already cloned the repository from the first step, just skip to the next part or if you haven't
+
+git clone https://github.com/saeedaali/ec2-to-ecs-migration
+
+docker build -t YOUR_IMAGE_NAME . # could be any image name but for this project called it mutlistage
+
+docker tag <123456789012.dkr.ecr.eu-west-1.amazonaws.com/YOUR_IMAGE_NAME>
+                |-> #In order to get URI, Go to your Region of choice and Select ECR and get select copy commands, copy that URI and paste it here
+
+
+cd infra
+terraform init
+terraform fmt
+terraform validate
+terraform apply         # Only if you do it in your local computer
+
+# ---------------
+# For automation via Github Actions deploy these in order
+
+- Build.yml: Create ECR + Build and Scan image with Docker and Trivy, Pushes it to ECR
+- Deploy.yml: Initalized and applies the AWS services before the ECS Fargate in this instance, it would be S3
+    - Initalized the ECS Fargate, validating it, format checking, and applying the ecs fargate live on AWS through automation
+    - Updates the ECS service which allows it to pick up the latest Docker Image avaliable.
+
+- Destroy.yml: Tears down the entire ECS Fargate infrastructure using 'terraform destroy', referencing the current state stored in the S3 backend
+
+Additional info: Used a conditional to check whether the s3 bucket exists, if it doesnt exist creates the bootstrap if it does exist, skip
 
 
 

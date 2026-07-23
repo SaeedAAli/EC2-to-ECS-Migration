@@ -245,18 +245,20 @@ Additional info: Used a conditional to check whether the s3 bucket exists, if it
 
 ## Traffic Cutover Plan
 
+For the Traffic Cutover Plan, I designed the weight changes to increase or decrease by twenty at rach stage, this is done deliberatly to reduce the risk of suddent shift in terms of traffic between the two active services (ECS & EC2). The time to live or (TTL for short) is set to 60 seconds, which means that cached DNS records expire quickly and users pick up the new weight at the new stage within about a minute rather than being stuck on outdated traffic which then causes each user with access to not have visibility present on screen.
+
+| Stage | EC2 Weight | ECS Weight |
+|-------|-----------|-----------|
+| 1 | 90 | 10 |
+| 2 | 70 | 30 |
+| 3 | 50 | 50 |
+| 4 | 30 | 70 |
+| 5 | 10 | 90 |
+| 6 | 0  | 100 |
 
 
 
-
-
-
-
-
-
-
-
-
+For the Traffic Cutover Plan, I designed the weight changes to increase or decrease by twenty at each stage, since gradual, consistent steps reduce the risk of a sudden shift in traffic between the two services. The DNS Time to Live (TTL) is set to 60 seconds, meaning cached DNS records expire quickly and users pick up each new weighting within about a minute, rather than being stuck on outdated traffic distribution for longer.
 
 
 

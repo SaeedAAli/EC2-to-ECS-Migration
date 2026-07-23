@@ -83,6 +83,8 @@ Each Worlfows has its unique attribute and how its published to AWS + Cloudflare
  - Manually deploy each workflow via Workflow Dispatch
 
 
+- Used a Backend on both the Legacy Application and Ecs Fargate through terraform via terraform.tfstate, this enables remote collaboration through having it stored in the same  S3 bucket, alongside being able to successfully close down each services through github actions and avoid doing it manually. with each `./infra` and `ec2-legacy-app` have its own seperate key to avoid state collisions between two stacks; and also makes destroying each infrastructure much easier through automation
+
 
 ## Project Structure
 
@@ -197,6 +199,8 @@ docker build -t YOUR_IMAGE_NAME . # could be any image name but for this project
 
 docker tag <123456789012.dkr.ecr.eu-west-1.amazonaws.com/YOUR_IMAGE_NAME>
                 |-> #In order to get URI, Go to your Region of choice and Select ECR and get select copy commands, copy that URI and paste it here
+
+
 
 
 cd infra

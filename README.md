@@ -258,13 +258,6 @@ For the Traffic Cutover Plan, I designed the weight changes to increase or decre
 
 
 
-For the Traffic Cutover Plan, I designed the weight changes to increase or decrease by twenty at each stage, since gradual, consistent steps reduce the risk of a sudden shift in traffic between the two services. The DNS Time to Live (TTL) is set to 60 seconds, meaning cached DNS records expire quickly and users pick up each new weighting within about a minute, rather than being stuck on outdated traffic distribution for longer.
-
-
-
-
-
-
 
 
 

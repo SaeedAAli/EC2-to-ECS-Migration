@@ -63,7 +63,7 @@ The reason why i chose weighted routing policy because it's most approachable cu
 
 ## CI/CD Explanation
 
-When it comes to CI/CD Explanation, The workflows have been split into 5 seperate tasks so that errors are easier to isolate, debugging becomes much more easier by finding which workflows is failing.
+When it comes to CI/CD Explanation, The workflows have been split into 5 separate tasks so that errors are easier to isolate, debugging becomes much more easier by finding which workflows is failing.
 
 Each Worlfows has its unique attribute and how its published to AWS + Cloudflare
 
@@ -111,14 +111,12 @@ Each Worlfows has its unique attribute and how its published to AWS + Cloudflare
 │   │   └── validate-setup.sh
 │   ├── systemd
 │   │   └── app.service
-│   ├── terraform
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   ├── terraform.tfstate
-│   │   ├── terraform.tfvars
-│   │   ├── terraform.tfvars.example
-│   │   └── variables.tf
-│   └── terraform.tfstate
+│   └── terraform
+│       ├── main.tf
+│       ├── outputs.tf
+│       ├── terraform.tfvars
+│       ├── terraform.tfvars.example
+│       └── variables.tf
 ├── images
 │   ├── ec2.png
 │   └── ecs-architecture.png
@@ -128,21 +126,42 @@ Each Worlfows has its unique attribute and how its published to AWS + Cloudflare
 │   ├── main.tf
 │   ├── modules
 │   │   ├── acm
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variable.tf
 │   │   ├── alb
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
 │   │   ├── cloudwatch
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
 │   │   ├── ecs
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
 │   │   ├── iam
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
 │   │   ├── route53
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
 │   │   ├── security_group
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
 │   │   ├── vpc
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
 │   │   └── vpc-endpoints
 │   ├── outputs.tf
 │   ├── provider.tf
-│   ├── terraform.tfstate
-│   ├── terraform.tfstate.backup
 │   ├── terraform.tfvars
 │   └── variables.tf
-├── terraform.tfstate
 └── test
     └── Dockerfile
 
@@ -197,13 +216,14 @@ git clone https://github.com/saeedaali/ec2-to-ecs-migration
 
 docker build -t YOUR_IMAGE_NAME . # could be any image name but for this project called it mutlistage
 
-docker tag <123456789012.dkr.ecr.eu-west-1.amazonaws.com/YOUR_IMAGE_NAME>
-                |-> #In order to get URI, Go to your Region of choice and Select ECR and get select copy commands, copy that URI and paste it here
 
+# Get your ECR repository URI from AWS ECR -> create repository -> select the repository -> view push command
 
+docker push 123456789012.dkr.ecr.eu-west-1.amazonaws.com/YOUR_IMAGE_NAME:latest
 
 
 cd infra
+cp terraform.tfvars.example terraform.tfvars
 terraform init
 terraform fmt
 terraform validate
@@ -215,14 +235,56 @@ terraform apply         # Only if you do it in your local computer
 - Build.yml: Create ECR + Build and Scan image with Docker and Trivy, Pushes it to ECR
 - Deploy.yml: Initalized and applies the AWS services before the ECS Fargate in this instance, it would be S3
     - Initalized the ECS Fargate, validating it, format checking, and applying the ecs fargate live on AWS through automation
-    - Updates the ECS service which allows it to pick up the latest Docker Image avaliable.
+    - Updates the ECS service which allows it to pick up the latest Docker Image available.
 
 - Destroy.yml: Tears down the entire ECS Fargate infrastructure using 'terraform destroy', referencing the current state stored in the S3 backend
 
 Additional info: Used a conditional to check whether the s3 bucket exists, if it doesnt exist creates the bootstrap if it does exist, skip
-
-
-
 ```
+
+
+## Traffic Cutover Plan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Rollback Plan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Screenshots
 
 

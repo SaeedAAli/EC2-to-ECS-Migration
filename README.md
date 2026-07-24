@@ -263,10 +263,19 @@ For the Traffic Cutover Plan, I designed the weight changes to increase or decre
 
 ## Rollback Plan
 
+For the Rollback plan, the approach that i went with is to keep the EC2 instance running in the background after traffic is fully migrated to ECS, with the EC2 weight set to 0. I'll be monitoring all traffic through Cloudwatch to verify that the ECS can handle the traffic load, if the ECS handles the traffic successfully without any errors, I'll decomission the EC2 instance by running `Ec2-TearInfra.yml` through GitHub Actions
+
+However when it comes to the ECS unable to contain all traffic and there is failed spikes detected in Cloudwatch and EventBridge, I'll manually adjut the EC2 weight by chaning the value in `/infra/terraform.tfvars`. This allows me to diagnose the issue while limiting user impact due to the weighted routing. For example, after a 100/0 split, I would roll back to 30/70 or 40/60 between the EC2 and ECS
+
+```bash
+
+In order for you to change the weight in order to perform this Rollack plan, edit the values in `infra/terraform.tfvars`
+
+ecs_weight = # the amount of traffic that is going to be directed to the ECS or Elastic Container Service  -> Depending on how you see fit
+ec2_weight = # the amount of traffic that is going to be directed to the EC2 instance -> Depending on you how see fit
 
 
-
-
+```
 
 
 
@@ -283,3 +292,16 @@ For the Traffic Cutover Plan, I designed the weight changes to increase or decre
 # Screenshots
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+## Data Mitigation

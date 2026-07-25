@@ -29,8 +29,8 @@ jobs:
       - name: Check if S3 Bucket Exists, If so, Perform Initalize, Plan and Apply to Bootstrap #Done to avoid s3 bucket already exist in when automating
         working-directory: ./bootstrap
         run: |
-          if aws s3api head-bucket --bucket "ec2toecsmigration" 2>dev/null; then
-          echo "S3 bucket exist -> Skip"
+          if aws s3api head-bucket --bucket "ec2toecsmigration" 2>/dev/null; then
+          echo "S3 bucket exist -> Skip
           else
               terraform init
               terraform plan

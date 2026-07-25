@@ -30,7 +30,7 @@ jobs:
         working-directory: ./bootstrap
         run: |
           if aws s3api head-bucket --bucket "ec2toecsmigration" 2>/dev/null; then
-          echo "S3 bucket exist -> Skip
+          echo "S3 bucket exist -> Skip"
           else
               terraform init
               terraform plan

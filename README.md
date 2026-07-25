@@ -285,10 +285,6 @@ ec2_weight = # the amount of traffic that is going to be directed to the EC2 ins
 
 
 
-
-
-
-
 # Screenshots
 
 
@@ -305,3 +301,15 @@ ec2_weight = # the amount of traffic that is going to be directed to the EC2 ins
 
 
 ## Data Mitigation
+
+What is Data Mitigation, data mitigation is where data gets moved between the EC2 Instance and the ECS Containers during Migration. This wasn't implemented during this version but in future projects down the line, its worth taking into consideraton, since it makes sure  ECS data isn't lost during migration
+
+
+
+
+### What Went Well 
+
+- **Docker Multi Stage Build**: Reduce the image size by 14.3% in order for less money and storage
+- **CI/CD Automation**: Scripted 5 workflows across ECS and EC2, using tools such as OpenID Connect, Trivy Scanning for Docker Image, and Injecting Cloudflare API Key to avoid security exposure by hardoding the API into `terraform.tfvars`
+- **Terraform**: Implemented Modules into my terraform infrastructure between 8 different AWS Services all linked to a singular main.tf
+- **Architecture Diagram**: Understood and mapped the entire flow from the Users perspective and the Developer Perspective and how everything is made.

@@ -41,6 +41,6 @@ zone_id = "21ce3d9268eef1589ab131eeee25b103"
 # ------
 # Cutover Weighted Routing
 ec2_eip    = ""
-ecs_weight = 10
-ec2_weight = 90
+ecs_weight = 90
+ec2_weight = 10
 ttl        = 60

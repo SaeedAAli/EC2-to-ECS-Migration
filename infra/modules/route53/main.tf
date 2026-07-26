@@ -48,6 +48,7 @@ resource "aws_route53_health_check" "HTTP" {
   resource_path = "/health"
   failure_threshold = "3"
   fqdn = var.subdomain
+  port = 80
 }
 
 
@@ -57,6 +58,7 @@ resource "aws_route53_health_check" "HTTPS" {
   resource_path = "/health"
   failure_threshold = "3"
   fqdn = var.subdomain
+  port = 443
 }
 
 resource "cloudflare_dns_record" "name" {

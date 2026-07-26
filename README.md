@@ -4,6 +4,21 @@
 
 
 
+## Table of Contents
+
+- [Explanation of ECS Architecture Diagram](#explanation-of-ecs-architecture-diagram)
+- [Components Used](#components-used)
+- [Full Migration Strategy](#full-migration-strategy)
+- [CI/CD Explanation](#cicd-explanation)
+- [Project Structure](#project-structure)
+- [Deployments Step](#deployments-step)
+- [Traffic Cutover Plan](#traffic-cutover-plan)
+- [Rollback Plan](#rollback-plan)
+- [Data Mitigation](#data-mitigation)
+- [Screenshots](#screenshots)
+- [What Went Well](#what-went-well)
+
+
 This project simulates what real cloud migration would look like in a production grade environment. By taking a legacy EC2 application and migrating it to a modernised, containerised ECS Fargate launch type with established networking, Continious Intergration and Continious Deployment, and Observability. Furthermore by Implementing a Cutover plan to document the process between each switch 
 
 ## Before EC2 Migration, Architecture Diagram
@@ -287,6 +302,8 @@ ec2_weight = # the amount of traffic that is going to be directed to the EC2 ins
 
 # Screenshots
 
+<img src="/images/api-products.png">
+
 
 
 
@@ -307,9 +324,11 @@ What is Data Mitigation, data mitigation is where data gets moved between the EC
 
 
 
-### What Went Well 
 
-- **Docker Multi Stage Build**: Reduce the image size by 14.3% in order for less money and storage
-- **CI/CD Automation**: Scripted 5 workflows across ECS and EC2, using tools such as OpenID Connect, Trivy Scanning for Docker Image, and Injecting Cloudflare API Key to avoid security exposure by hardoding the API into `terraform.tfvars`
-- **Terraform**: Implemented Modules into my terraform infrastructure between 8 different AWS Services all linked to a singular main.tf
+## What Went Well 
+
+- **Docker Multi-Stage Build**: Reduce the image size by 14.3%, resulting in lower storage cost, and faster deployment.
+- **CI/CD Automation**: Scripted 5 workflows across ECS and EC2, using tools such as OpenID Connect, Trivy scanning for Docker images, and injecting the Cloudflare API key as a secret to avoid exposure from hardcoding it into `terraform.tfvars`.
+- **Terraform**: Implemented Modules into my terraform infrastructure between 8 different AWS Services all linked to a singular `infra/main.tf`
 - **Architecture Diagram**: Understood and mapped the entire flow from the Users perspective and the Developer Perspective and how everything is made.
+- **Monitoring & Observability

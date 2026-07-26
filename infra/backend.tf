@@ -4,6 +4,6 @@ terraform {
     key          = "terraform.tfstate"
     encrypt      = true
     use_lockfile = true
-    bucket       = "infra/ec2toecsmigration"
+    bucket       = "ec2toecsmigration"
   }
 }

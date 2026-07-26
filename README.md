@@ -331,4 +331,4 @@ What is Data Mitigation, data mitigation is where data gets moved between the EC
 - **CI/CD Automation**: Scripted 5 workflows across ECS and EC2, using tools such as OpenID Connect, Trivy scanning for Docker images, and injecting the Cloudflare API key as a secret to avoid exposure from hardcoding it into `terraform.tfvars`.
 - **Terraform**: Implemented Modules into my terraform infrastructure between 8 different AWS Services all linked to a singular `infra/main.tf`
 - **Architecture Diagram**: Understood and mapped the entire flow from the Users perspective and the Developer Perspective and how everything is made.
-- **Monitoring & Observability
+- **Monitoring & Observability** 

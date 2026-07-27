@@ -343,8 +343,29 @@ If launching the EC2 instance and wanting to test it out, get the output from th
 ## CI/CD Pipeline 
 
 
+**Build Docker Image, Scan with Trivy, Push to ECR Pipeline**
+
+<img src="/images/docker-build-scan-push-ecr-pipeline.png">
 
 
+**Launching EC2 Legacy Application Pipeline**
+
+<img src="/images/launching-ec2-legacy-application-pipeline.png">
+
+
+**Deploy ECS Infrastructure Pipleine**
+
+<img src="/images/deploying-ecs-infrastructure-pipeline.png">
+
+
+**Destroy ECS Infrastructure Pipeline**
+
+<img src="/images/ecs-tear-pipeline.png">
+
+
+**Destroy EC2 Legacy Application Pipeline**
+
+<img src="/images/ecs-tear-pipeline.png">
 
 
 

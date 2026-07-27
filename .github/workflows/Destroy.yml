@@ -32,3 +32,5 @@ jobs:
       - name: Terraform Destroy Infastructure
         working-directory: ./infra
         run: terraform destroy -auto-approve
+
+      

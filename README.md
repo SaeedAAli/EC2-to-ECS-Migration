@@ -302,9 +302,45 @@ ec2_weight = # the amount of traffic that is going to be directed to the EC2 ins
 
 # Screenshots
 
+### EC2 Legacy Instance
+
+The Flask API provides the following endpoints:
+
+- `GET /health` - Health check endpoint
+- `GET /api/v1/products` - List all products
+- `GET /api/v1/products/{id}` - Get specific product
+- `POST /api/v1/orders` - Create a new order
+- `GET /api/v1/orders` - List all orders
+- `GET /api/v1/stats` - Application statistics
+
+
+If launching the EC2 instance and wanting to test it out, get the output from the `legacy-terraform.yml` and copy any of the following endpoints so it would turn out to be `123.`
+
+
 <img src="/images/api-products.png">
 
 
+
+<img src="/images/ec2-health.png">
+
+
+
+
+### ECS Fargate Infrastructure
+
+
+<img src="/images/ecs-certificate.png">
+
+
+<img src="/images/ecs-health.png">
+
+
+<img src="/images/ecs-stats.png">
+
+
+
+
+## CI/CD Pipeline 
 
 
 

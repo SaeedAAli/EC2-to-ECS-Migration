@@ -340,7 +340,7 @@ If launching the EC2 instance and wanting to test it out, get the output from th
 
 
 
-## CI/CD Pipeline 
+## CI/CD Pipeline Screenshots
 
 
 **Build Docker Image, Scan with Trivy, Push to ECR Pipeline**

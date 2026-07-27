@@ -19,7 +19,7 @@
 - [What Went Well](#what-went-well)
 
 
-This project simulates what real cloud migration would look like in a production grade environment. By taking a legacy EC2 application and migrating it to a modernised, containerised ECS Fargate launch type with established networking, Continious Intergration and Continious Deployment, and Observability. Furthermore by Implementing a Cutover plan to document the process between each switch 
+This project simulates what real cloud migration would look like in a production grade environment. By taking a legacy EC2 application and migrating it to a modernised, containerised ECS Fargate launch type with established networking, Continuous Intergration and Continious Deployment, and Observability. Furthermore by Implementing a Cutover plan to document the process between each switch 
 
 ## Before EC2 Migration, Architecture Diagram
 
@@ -49,8 +49,8 @@ This project simulates what real cloud migration would look like in a production
 
 * Cloudflare Provider inbuked in terraform + Using API Token for Automating and Updating Records at the Same time when Deploying Application.
 * Docker Mutli Stage Image used for Less storage and Cost effecient -> Quicker runtime for the Image being Built
-* Configured OpenID Connect between Github Actions and AWS for short lived credentials and no more static keyes being stored
-* Modularised Terraform into 7 modules for Reusability and Organizaton, Consistency and Collaboration
+* Configured OpenID Connect between Github Actions and AWS for short lived credentials and no more static keys being stored
+* Modularised Terraform into 7 modules for Reusability and Organization, Consistency and Collaboration
 * Switched Legacy EC2 from Amazon Linux to Ubuntu for consistency.
 
 
@@ -282,6 +282,8 @@ For the Rollback plan, the approach that i went with is to keep the EC2 instance
 
 However when it comes to the ECS unable to contain all traffic and there is failed spikes detected in Cloudwatch and EventBridge, I'll manually adjut the EC2 weight by chaning the value in `/infra/terraform.tfvars`. This allows me to diagnose the issue while limiting user impact due to the weighted routing. For example, after a 100/0 split, I would roll back to 30/70 or 40/60 between the EC2 and ECS
 
+In order to see the effect, rather than running a already deployed pipeline or `re-run all jobs & failed jobs`. Run a new workflow instead.
+
 ```bash
 
 In order for you to change the weight in order to perform this Rollack plan, edit the values in `infra/terraform.tfvars`
@@ -388,4 +390,5 @@ What is Data Mitigation, data mitigation is where data gets moved between the EC
 - **CI/CD Automation**: Scripted 5 workflows across ECS and EC2, using tools such as OpenID Connect, Trivy scanning for Docker images, and injecting the Cloudflare API key as a secret to avoid exposure from hardcoding it into `terraform.tfvars`.
 - **Terraform**: Implemented Modules into my terraform infrastructure between 8 different AWS Services all linked to a singular `infra/main.tf`
 - **Architecture Diagram**: Understood and mapped the entire flow from the Users perspective and the Developer Perspective and how everything is made.
-- **Monitoring & Observability** 
+- **Monitoring & Observability** Set up Cloudwatch alarms for CPU, 4XX/5XX errors, and ECS deployment failures via EventBridge
+

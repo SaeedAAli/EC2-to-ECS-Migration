@@ -29,7 +29,7 @@ This project simulates what real cloud migration would look like in a production
 
 ## After EC2 Migration, ECS Architecture Diagram
 <p align="center">
-    <img src="./images/ecs-architecture.png" width=800 height=900>
+    <img src="./images/Ecs-Architecture-Fix.png" width=800 height=900>
 
 
 ## Explanation of ECS Architecture Diagram
